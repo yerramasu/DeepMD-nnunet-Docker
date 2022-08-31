@@ -18,7 +18,7 @@ COPY pipeline.sh /home
 RUN cd /home && \
   git clone https://github.com/MIC-DKFZ/nnUNet.git  && \
   mkdir /home/nnUNet/input && \
-  mkdir /home/models && \
+#   mkdir /home/models && \
   mkdir /home/nnUNet/output && \
   mkdir /home/nnUNet/data && \
   mkdir /home/nnUNet/data/models && \
