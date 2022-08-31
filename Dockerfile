@@ -1,6 +1,10 @@
 # Parent Image
 FROM nvcr.io/nvidia/pytorch:20.11-py3
 
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y wget
+RUN apt-get install -y unzip
+
 ENV nnUNet_raw_data_base "/home/nnUNet/data/nnUNet_raw_data_base"
 ENV nnUNet_preprocessed "/home/nnUNet/data/nnUNet_preprocessed"
 ENV RESULTS_FOLDER "/home/nnUNet/data/models"
