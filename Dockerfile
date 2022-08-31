@@ -17,6 +17,8 @@ RUN cd /home && \
   mkdir /home/nnUNet/data/nnUNet_preprocessed && \
   cd /home/nnUNet && \
   pip install -e . && \
+  pip3 install progress && \
+  pip3 install graphviz && \
   nnUNet_download_pretrained_model Task029_LiTS  && \
   cd /home
 ENTRYPOINT ["/home/pipeline.sh"]
