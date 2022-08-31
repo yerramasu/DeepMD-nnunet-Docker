@@ -4,12 +4,15 @@ FROM nvcr.io/nvidia/pytorch:20.11-py3
 ENV nnUNet_raw_data_base "/home/nnUNet/data/nnUNet_raw_data_base"
 ENV nnUNet_preprocessed "/home/nnUNet/data/nnUNet_preprocessed"
 ENV RESULTS_FOLDER "/home/nnUNet/data/models"
+ENV seg_model_url  "https://www.dropbox.com/s/m7es2ojn8h0ybhv/Task055_SegTHOR.zip?dl=0"
+ENV output_path  "home/models/Task055_SegTHOR.zip"
 
 COPY pipeline.sh /home
 # Installing nnU-Net
 RUN cd /home && \
   git clone https://github.com/MIC-DKFZ/nnUNet.git  && \
   mkdir /home/nnUNet/input && \
+  mkdir /home/models && \
   mkdir /home/nnUNet/output && \
   mkdir /home/nnUNet/data && \
   mkdir /home/nnUNet/data/models && \
@@ -19,7 +22,7 @@ RUN cd /home && \
   pip install -e . && \
   pip3 install progress && \
   pip3 install graphviz && \
-  nnUNet_download_pretrained_model Task029_LiTS  && \
+  nnUNet_install_pretrained_model_from_zip $PATH_TO_MODEL_FILE  && \
   cd /home
 ENTRYPOINT ["/home/pipeline.sh"]
 # Installing additional libraries
