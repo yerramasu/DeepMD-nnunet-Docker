@@ -8,7 +8,7 @@ ENV RESULTS_FOLDER "/home/nnUNet/data/models"
 COPY pipeline.sh /home
 # Installing nnU-Net
 RUN cd /home && \
-  git clone https://github.com/MIC-DKFZ/nnUNet.git . && \
+  git clone https://github.com/MIC-DKFZ/nnUNet.git  && \
   mkdir /home/nnUNet/input && \
   mkdir /home/nnUNet/output && \
   mkdir /home/nnUNet/data && \
