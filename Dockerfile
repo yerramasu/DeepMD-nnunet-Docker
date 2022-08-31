@@ -10,7 +10,7 @@ ENV nnUNet_preprocessed "/home/nnUNet/data/nnUNet_preprocessed"
 ENV RESULTS_FOLDER "/home/nnUNet/data/models"
 ENV seg_model_url  "https://www.dropbox.com/s/m7es2ojn8h0ybhv/Task055_SegTHOR.zip?dl=0"
 ENV output_path  "/home/models/Task055_SegTHOR.zip"
-RUN wget  -O $output_path $seg_model_url
+RUN wget  -O /home/models/Task055_SegTHOR.zip https://www.dropbox.com/s/m7es2ojn8h0ybhv/Task055_SegTHOR.zip?dl=0
 #-O $output_path $seg_model_url
 COPY pipeline.sh /home
 # Installing nnU-Net
@@ -27,7 +27,7 @@ RUN cd /home && \
   pip install -e . && \
   pip3 install progress && \
   pip3 install graphviz && \
-  nnUNet_install_pretrained_model_from_zip $PATH_TO_MODEL_FILE  && \
+  nnUNet_install_pretrained_model_from_zip /home/models/Task055_SegTHOR.zip  && \
   cd /home
 ENTRYPOINT ["/home/pipeline.sh"]
 # Installing additional libraries
