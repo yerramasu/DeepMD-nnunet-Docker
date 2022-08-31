@@ -17,7 +17,7 @@ RUN cd /home && \
   mkdir /home/nnUNet/data/nnUNet_preprocessed && \
   cd /home/nnUNet && \
   pip install -e . && \
-  nnUNet_download_pretrained_model Task009_Spleen && \
+  nnUNet_download_pretrained_model Task029_LiTS  && \
   cd /home
 ENTRYPOINT ["/home/pipeline.sh"]
 # Installing additional libraries
