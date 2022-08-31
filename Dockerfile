@@ -7,7 +7,8 @@ ENV RESULTS_FOLDER "/home/nnUNet/data/models"
 
 COPY pipeline.sh /home
 # Installing nnU-Net
-RUN mkdir /home/nnUNet && \
+RUN cd /home && \
+  git clone https://github.com/MIC-DKFZ/nnUNet.git . && \
   mkdir /home/nnUNet/input && \
   mkdir /home/nnUNet/output && \
   mkdir /home/nnUNet/data && \
@@ -15,7 +16,6 @@ RUN mkdir /home/nnUNet && \
   mkdir /home/nnUNet/data/nnUNet_raw_data_base && \
   mkdir /home/nnUNet/data/nnUNet_preprocessed && \
   cd /home/nnUNet && \
-  git clone https://github.com/MIC-DKFZ/nnUNet.git . && \
   pip install -e . && \
   nnUNet_download_pretrained_model Task009_Spleen && \
   cd /home
