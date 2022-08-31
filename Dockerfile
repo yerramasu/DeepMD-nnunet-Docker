@@ -32,6 +32,7 @@ RUN cd /home && \
   pip3 install graphviz && \
   nnUNet_install_pretrained_model_from_zip /home/models/Task055_SegTHOR.zip  && \
   cd /home
+RUN chmod +x /home/pipeline.sh
 ENTRYPOINT ["/home/pipeline.sh"]
 # Installing additional libraries
 # WORKDIR /workspace/
