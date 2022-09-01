@@ -4,7 +4,9 @@ FROM nvcr.io/nvidia/pytorch:20.10-py3
 # RUN apt-get update && apt-get upgrade -y
 # RUN apt-get install -y wget
 # RUN apt-get install -y unzip
-
+# RUN pip3 install virtualenv 
+# COPY env/ /env/
+# RUN  source /env/bin/activate
 ENV nnUNet_raw_data_base "/home/nnUNet/data/nnUNet_raw_data_base"
 ENV nnUNet_preprocessed "/home/nnUNet/data/nnUNet_preprocessed"
 ENV RESULTS_FOLDER "/home/nnUNet/data/models"
@@ -20,7 +22,10 @@ COPY pipeline.sh /home
 RUN cd /home && \
   mkdir /home/input && \
   mkdir /home/output && \
-  git clone https://github.com/MIC-DKFZ/nnUNet.git  && \
+  mkdir /home/nnUNet && \
+  pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113 && \
+  pip install nnunet && \
+  #git clone https://github.com/MIC-DKFZ/nnUNet.git  && \
   mkdir /home/nnUNet/input && \
 #   mkdir /home/models && \
   mkdir /home/nnUNet/output && \
@@ -29,10 +34,11 @@ RUN cd /home && \
   mkdir /home/nnUNet/data/nnUNet_raw_data_base && \
   mkdir /home/nnUNet/data/nnUNet_preprocessed && \
   cd /home/nnUNet && \
-  pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113 && \
-  pip install -e . && \
-  pip3 install progress && \
-  pip3 install graphviz && \
+  # pip install -e . && \
+  #pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113 && \
+  #pip install -e . && \
+  #pip3 install progress && \
+  #pip3 install graphviz && \
   nnUNet_install_pretrained_model_from_zip /home/models/Task055_SegTHOR.zip  && \
   cd /home
 RUN chmod +x /home/pipeline.sh
