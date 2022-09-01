@@ -1,5 +1,5 @@
-docker build -t anilyerramasu/nnunet:beta .
+docker build -t anilyerramasu/nnunet-spleen_gpu .
 After building the image using docker build command,  the container using the following:
 
 Run Command
-docker run anilyerramasu/nnunet-spleen:beta --gpus all --rm -v /home/ubuntu/DeepMD-nnunet-Docker/input:/home/in -v /home/ubuntu/DeepMD-nnunet-Docker/output:/home/out
+docker run  --gpus all -it --rm -v $(pwd)/input:/home/input -v $(pwd)/output:/home/output  anilyerramasu/nnunet-spleen_gpu1
