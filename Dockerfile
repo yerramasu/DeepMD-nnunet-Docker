@@ -18,6 +18,7 @@ RUN wget  -O /home/models/Task055_SegTHOR.zip https://www.dropbox.com/s/m7es2ojn
 COPY pipeline.sh /home
 # Installing nnU-Net
 RUN cd /home && \
+  RUN mkdir /{in,out} && \
   git clone https://github.com/MIC-DKFZ/nnUNet.git  && \
   mkdir /home/nnUNet/input && \
 #   mkdir /home/models && \
