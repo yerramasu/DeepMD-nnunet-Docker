@@ -11,17 +11,18 @@ ENV nnUNet_raw_data_base "/home/nnUNet/data/nnUNet_raw_data_base"
 ENV nnUNet_preprocessed "/home/nnUNet/data/nnUNet_preprocessed"
 ENV RESULTS_FOLDER "/home/nnUNet/data/models"
 ENV seg_model_url  "https://www.dropbox.com/s/m7es2ojn8h0ybhv/Task055_SegTHOR.zip?dl=0"
-ENV output_path  "/home/models/Task055_SegTHOR.zip"
+ENV output_path  "/home/models/Task002_Heart.zip"
 RUN mkdir /home/models
 # RUN wget  -O /home/models/Task055_SegTHOR.zip https://www.dropbox.com/s/m7es2ojn8h0ybhv/Task055_SegTHOR.zip?dl=0
 #-O $output_path $seg_model_url
 # RUN mkdir /home/models
-COPY Task055_SegTHOR.zip /home/models
+COPY  Task017_AbdominalOrganSegmentation.zip /home/models
 COPY pipeline.sh /home
+COPY listdir.py /home
 # Installing nnU-Net
 RUN cd /home && \
   mkdir /home/input && \
-  mkdir /home/output && \
+  #mkdir /home/output && \
   mkdir /home/nnUNet && \
   pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113 && \
   pip install nnunet && \
@@ -39,7 +40,8 @@ RUN cd /home && \
   #pip install -e . && \
   #pip3 install progress && \
   #pip3 install graphviz && \
-  nnUNet_install_pretrained_model_from_zip /home/models/Task055_SegTHOR.zip  && \
+  # nnUNet_download_pretrained_model Task003_Liver &&  \
+  nnUNet_install_pretrained_model_from_zip /home/models/Task017_AbdominalOrganSegmentation.zip   && \
   cd /home
 RUN chmod +x /home/pipeline.sh
 ENTRYPOINT ["/home/pipeline.sh"]
