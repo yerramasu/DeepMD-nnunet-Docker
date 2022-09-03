@@ -1,5 +1,5 @@
 <!doctype html>
-<title>Python Flask Multiple Files Upload Example</title>
+<title>DeepMD AI Model test page</title>
 <h2>Select file(s) to upload</h2>
 <p>
 	{% with messages = get_flashed_messages() %}
@@ -12,13 +12,19 @@
 	  {% endif %}
 	{% endwith %}
 </p>
-<form method="post" action="/prediction" enctype="multipart/form-data">
+<form method="post" action="/upload" enctype="multipart/form-data">
     <dl>
 		<p>
 			<input type="file" name="files[]" multiple="true" autocomplete="off" required>
 		</p>
     </dl>
     <p>
-		<input type="submit" value="Submit">
+		<input type="submit" value="Upload">
+	</p>
+</form>
+<form method="post" action="/prediction" enctype="multipart/form-data">
+    
+    <p>
+		<input type="submit" value="Predict">
 	</p>
 </form>
