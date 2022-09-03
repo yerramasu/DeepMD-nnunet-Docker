@@ -34,7 +34,8 @@ def upload_form():
 
 @app.route('/')
 def home():
-   return "Model Abdominal Organ Segmentation"
+  message = "Multi-Atlas Labeling Beyond the Cranial Vault - Abdomen. \n" +"Segmentation targets are thirteen different abdominal organs, " +"Input modalities are 0: abdominal CT scan. "
+  return message
 
 @app.route('/prediction', methods=['POST'])
 def upload_file():

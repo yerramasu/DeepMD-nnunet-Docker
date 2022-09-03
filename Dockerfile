@@ -51,7 +51,8 @@ RUN cd /home && \
 RUN chmod +x /home/pipeline.sh
 RUN chmod +x /home/predict.sh
 # RUN  /home/pipeline.sh 
-ENTRYPOINT ["/home/pipeline.sh"]
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+# ENTRYPOINT ["/home/pipeline.sh"]
 # Installing additional libraries
 # WORKDIR /workspace/
 # RUN pip3 install --upgrade git+https://github.com/nanohanno/hiddenlayer.git@bugfix/get_trace_graph#egg=hiddenlayer
