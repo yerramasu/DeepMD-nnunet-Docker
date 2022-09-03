@@ -20,7 +20,7 @@ COPY  Task017_AbdominalOrganSegmentation.zip /home/models
 COPY pipeline.sh /home
 COPY predict.sh /home
 COPY listdir.py /home
-COPY app.py /home
+COPY App.py /home
 RUN mkdir /home/templates
 COPY templates/upload.html /home/templates
 # Installing nnU-Net
@@ -52,7 +52,7 @@ RUN chmod +x /home/pipeline.sh
 RUN chmod +x /home/predict.sh
 RUN cd /home
 WORKDIR /home
-ENV FLASK_APP=app.py
+ENV FLASK_APP=App.py
 # RUN  /home/pipeline.sh 
 CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
 # ENTRYPOINT ["/home/pipeline.sh"]

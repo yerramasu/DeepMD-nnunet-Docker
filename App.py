@@ -32,7 +32,12 @@ def allowed_file(filename):
 def upload_form():
     return render_template('upload.html')
 
-@app.route('/upload', methods=['POST'])
+@app.route('/')
+def home():
+  message = "Multi-Atlas Labeling Beyond the Cranial Vault - Abdomen. \n" +"Segmentation targets are thirteen different abdominal organs, " +"Input modalities are 0: abdominal CT scan. "
+  return message
+
+@app.route('/prediction', methods=['POST'])
 def upload_file():
     if request.method == 'POST':
 
@@ -46,39 +51,18 @@ def upload_file():
             filename = secure_filename(file.filename)
             print(filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            # if file and allowed_file(file.filename):
+            #     filename = secure_filename(file.filename)
+            #     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
         # flash('File(s) successfully uploaded')
         # session = Popen(['./some.sh'], stdout=PIPE, stderr=PIPE)
         print(app.config['UPLOAD_FOLDER'])
         my = os.listdir(app.config['UPLOAD_FOLDER'])
         print("input dir = ",my)
-        
-        return redirect('/test')
-
-
-@app.route('/')
-def home():
-  message = "Multi-Atlas Labeling Beyond the Cranial Vault - Abdomen. \n" +"Segmentation targets are thirteen different abdominal organs, " +"Input modalities are 0: abdominal CT scan. "
-  return message
-
-@app.route('/prediction', methods=['POST'])
-def predict():
-    if request.method == 'POST':
-
-        
         subprocess.check_output("/home/predict.sh", shell=True)
         return redirect('/test')
 
-@app.route('/prediction', methods=['GET'])
-def predict2():
-    if request.method == 'GET':
-
-        
-        subprocess.check_output("/home/predict.sh", shell=True)
-        return redirect('/test')
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=5000,debug=False,threaded=True)

@@ -12,7 +12,7 @@
 	  {% endif %}
 	{% endwith %}
 </p>
-<form method="post" action="/upload" enctype="multipart/form-data">
+<form method="post" action="/prediction" enctype="multipart/form-data">
     <dl>
 		<p>
 			<input type="file" name="files[]" multiple="true" autocomplete="off" required>
@@ -20,11 +20,5 @@
     </dl>
     <p>
 		<input type="submit" value="Upload">
-	</p>
-</form>
-<form method="post" action="/prediction" enctype="multipart/form-data">
-    
-    <p>
-		<input type="submit" value="prediction">
 	</p>
 </form>
