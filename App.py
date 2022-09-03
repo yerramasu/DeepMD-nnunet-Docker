@@ -37,8 +37,8 @@ def home():
   message = "Multi-Atlas Labeling Beyond the Cranial Vault - Abdomen. \n" +"Segmentation targets are thirteen different abdominal organs, " +"Input modalities are 0: abdominal CT scan. "
   return message
 
-@app.route('/prediction', methods=['POST'])
-def upload_file():
+@app.route('/test', methods=['POST'])
+def upload():
     if request.method == 'POST':
 
         if 'files[]' not in request.files:
@@ -60,9 +60,18 @@ def upload_file():
         print(app.config['UPLOAD_FOLDER'])
         my = os.listdir(app.config['UPLOAD_FOLDER'])
         print("input dir = ",my)
-        subprocess.check_output("/home/predict.sh", shell=True)
+        # subprocess.check_output("/home/predict.sh", shell=True)
         return redirect('/test')
 
+@app.route('/prediction', methods=['POST'])
+def prediction():
+    if request.method == 'POST':
+
+       
+
+        
+        subprocess.check_output("/home/predict.sh", shell=True)
+        return redirect('/test')
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=5000,debug=False,threaded=True)
