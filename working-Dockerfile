@@ -20,8 +20,6 @@ COPY  Task017_AbdominalOrganSegmentation.zip /home/models
 COPY pipeline.sh /home
 COPY listdir.py /home
 COPY App.py /home
-RUN mkdir /home/templates
-COPY templates/upload.html /home/templates
 # Installing nnU-Net
 RUN cd /home && \
   mkdir /home/input && \
@@ -29,7 +27,6 @@ RUN cd /home && \
   mkdir /home/nnUNet && \
   pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113 && \
   pip install nnunet && \
-  pip install flask && \
   #git clone https://github.com/MIC-DKFZ/nnUNet.git  && \
   mkdir /home/nnUNet/input && \
 #   mkdir /home/models && \
@@ -48,8 +45,7 @@ RUN cd /home && \
   nnUNet_install_pretrained_model_from_zip /home/models/Task017_AbdominalOrganSegmentation.zip   && \
   cd /home
 RUN chmod +x /home/pipeline.sh
-RUN python App.py
-# ENTRYPOINT ["/home/pipeline.sh"]
+ENTRYPOINT ["/home/pipeline.sh"]
 # Installing additional libraries
 # WORKDIR /workspace/
 # RUN pip3 install --upgrade git+https://github.com/nanohanno/hiddenlayer.git@bugfix/get_trace_graph#egg=hiddenlayer
