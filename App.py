@@ -53,7 +53,7 @@ def upload_file():
 
         # flash('File(s) successfully uploaded')
         # session = Popen(['./some.sh'], stdout=PIPE, stderr=PIPE)
-        subprocess.check_output("./pipeline.sh", shell=True)
+        subprocess.check_output("./predict.sh", shell=True)
         return redirect('/test')
 
 

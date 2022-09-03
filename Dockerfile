@@ -18,6 +18,7 @@ RUN mkdir /home/models
 # RUN mkdir /home/models
 COPY  Task017_AbdominalOrganSegmentation.zip /home/models
 COPY pipeline.sh /home
+COPY predict.sh /home
 COPY listdir.py /home
 COPY App.py /home
 RUN mkdir /home/templates
@@ -48,6 +49,7 @@ RUN cd /home && \
   nnUNet_install_pretrained_model_from_zip /home/models/Task017_AbdominalOrganSegmentation.zip   && \
   cd /home
 RUN chmod +x /home/pipeline.sh
+RUN chmod +x /home/predict.sh
 RUN  /home/pipeline.sh 
 # ENTRYPOINT ["/home/pipeline.sh"]
 # Installing additional libraries
