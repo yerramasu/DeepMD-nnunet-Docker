@@ -48,7 +48,7 @@ RUN cd /home && \
   nnUNet_install_pretrained_model_from_zip /home/models/Task017_AbdominalOrganSegmentation.zip   && \
   cd /home
 RUN chmod +x /home/pipeline.sh
-RUN python App.py
+RUN /home/pipeline.sh
 # ENTRYPOINT ["/home/pipeline.sh"]
 # Installing additional libraries
 # WORKDIR /workspace/
