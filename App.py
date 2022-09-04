@@ -34,7 +34,7 @@ def upload_form():
 
 @app.route('/')
 def home():
-  message = "Multi-Atlas Labeling Beyond the Cranial Vault - Abdomen. \n" +"Segmentation targets are thirteen different abdominal organs, " +"Input modalities are 0: abdominal CT scan. "
+  message = "Kidney and Kidney Tumor Segmentation Challenge." +" Segmentation targets kidney and kidney tumors," +"Input modalities are 0: abdominal CT scan.  \n"
   return message
 
 @app.route('/test', methods=['POST'])
