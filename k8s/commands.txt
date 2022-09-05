@@ -1,0 +1,1 @@
+microk8s kubectl -n deepmd exec --stdin --tty seghepatic-deployment-5c7f5787cf-8sxss -- /bin/bash

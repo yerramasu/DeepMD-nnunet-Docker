@@ -1,0 +1,56 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: deepmd-pvc
+  namespace: deepmd
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 200Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deepmd-models-deployment
+spec:
+  selector:
+    matchLabels:
+      app: seghepaticvessel
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: seghepaticvessel
+    spec:
+      volumes:
+        - name: deepmd-pvc
+          persistentVolumeClaim:
+            claimName: deepmd-pvc
+      containers:
+        - name: seghepaticvessel
+          image: anilyerramasu/seghepaticvessel_3d_gpu
+          ports:
+            - containerPort: 5000
+              name: seghepat-port
+            
+          
+          volumeMounts:
+            - name: deepmd-pvc
+              mountPath: /home/ubuntu/input
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: deepmd
+spec:
+  selector:
+    app: deepmd
+  ports:
+    - port: 5000
+      targetPort: 5000
+  type: LoadBalancer
+

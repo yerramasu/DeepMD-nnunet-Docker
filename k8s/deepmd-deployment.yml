@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: seghepatic-deployment
+  namespace: deepmd
+spec:
+  selector:
+    matchLabels:
+      app: hepatic
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: hepatic
+    spec:
+      volumes:
+      - name: deepmd-storage-input
+        hostPath:
+          path: /tmp/deepmd/input
+          type: DirectoryOrCreate
+
+      containers:
+      - name: hepatic
+      
+        image: anilyerramasu/seghepaticvessel_3d_gpu
+        ports:
+          - containerPort: 5000
+        volumeMounts:
+          - name: deepmd-storage-input
+            mountPath: /home/input
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hepatic-service
+  namespace: deepmd
+spec:
+  ports:
+  - port: 5000
+    targetPort: 5000
+    name: http
+  selector:
+    app: hepatic
