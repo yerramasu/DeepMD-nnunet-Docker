@@ -1,1 +1,13 @@
+# connect to pod shell
 microk8s kubectl -n deepmd exec --stdin --tty seghepatic-deployment-5c7f5787cf-8sxss -- /bin/bash
+
+# logs for pods
+microk8s kubectl logs 
+
+kubectl describe ing http-ingress  -n deepmd    
+kubectl get ing -n  deepmd  
+
+kubectl logs -f  nginx-ingress-microk8s-controller-km947 -n ingress
+
+kubectl describe deployment
+

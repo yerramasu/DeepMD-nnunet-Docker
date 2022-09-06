@@ -1,18 +1,35 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: http-ingress
+  name: http-ingress-default
   namespace: deepmd
   annotations:
-    
-    nginx.ingress.kubernetes.io/proxy-body-size: 80m
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/proxy-body-size: 800m
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "60000"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "60000"
     
     
 spec:
+
   rules:
   - http:
       paths:
-      - path: /
+      - path: /thor/(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: thor-service
+            port:
+              number: 5000
+      - path: /lits/(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: lits-service
+            port:
+              number: 5000
+      - path: /(.*)
         pathType: Prefix
         backend:
           service:

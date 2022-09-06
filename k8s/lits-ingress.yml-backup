@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: http-ingress-default
+  name: http-ingress-lits
   namespace: deepmd
   annotations:
     
@@ -20,11 +20,5 @@ spec:
           service:
             name: lits-service
             port:
-              number: 5000
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: hepatic-service
-            port:
-              number: 5000
+              number: 5001
+     
