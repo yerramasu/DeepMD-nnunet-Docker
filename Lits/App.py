@@ -74,7 +74,7 @@ def upload():
         print("input dir = ",my)
         # subprocess.check_output("/home/predict.sh", shell=True)
         subprocess.check_output("/home/predict.sh", shell=True)
-        return redirect('/test')
+        return redirect('/lits/predict')
 
 @app.route('/lits/prediction', methods=['POST'])
 def prediction():
