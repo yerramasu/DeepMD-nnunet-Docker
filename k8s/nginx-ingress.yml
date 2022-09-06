@@ -15,20 +15,14 @@ spec:
   rules:
   - http:
       paths:
-      - path: /thor/(.*)
+      - path: /thor
         pathType: Prefix
         backend:
           service:
             name: thor-service
             port:
               number: 5000
-      - path: /lits/prediction/(.*)
-        pathType: Prefix
-        backend:
-          service:
-            name: lits-service
-            port:
-              number: 5000
+      
       - path: /lits/(.*)
         pathType: Prefix
         backend:
@@ -36,7 +30,7 @@ spec:
             name: lits-service
             port:
               number: 5000
-      - path: /(.*)
+      - path: /
         pathType: Prefix
         backend:
           service:

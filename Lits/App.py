@@ -4,7 +4,10 @@ from flask import Flask, flash, request, redirect, render_template
 from werkzeug.utils import secure_filename
 import subprocess
 import json
+import shutil
 from flask import jsonify
+
+
 app=Flask(__name__)
 
 app.secret_key = "secret key"
@@ -44,8 +47,10 @@ def home():
 #   message = "Kidney and Kidney Tumor Segmentation Challenge." +" Segmentation targets kidney and kidney tumors," +"Input modalities are 0: abdominal CT scan.  \n"
   return jsonify(message)
 
-@app.route('/lits/test', methods=['POST'])
+@app.route('/lits/predict', methods=['POST'])
 def upload():
+    shutil.rmtree(app.config['UPLOAD_FOLDER'], ignore_errors=True)
+    os.mkdir(app.config['UPLOAD_FOLDER'])
     if request.method == 'POST':
 
         if 'files[]' not in request.files:
@@ -68,6 +73,7 @@ def upload():
         my = os.listdir(app.config['UPLOAD_FOLDER'])
         print("input dir = ",my)
         # subprocess.check_output("/home/predict.sh", shell=True)
+        subprocess.check_output("/home/predict.sh", shell=True)
         return redirect('/test')
 
 @app.route('/lits/prediction', methods=['POST'])
