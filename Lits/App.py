@@ -50,7 +50,7 @@ def home():
 @app.route('/lits/predict', methods=['POST'])
 def upload():
     shutil.rmtree(app.config['UPLOAD_FOLDER'], ignore_errors=True)
-    os.mkdir(app.config['UPLOAD_FOLDER'])
+    # os.mkdir(app.config['UPLOAD_FOLDER'])
     if request.method == 'POST':
 
         if 'files[]' not in request.files:
