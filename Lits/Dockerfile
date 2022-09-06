@@ -19,7 +19,7 @@ RUN mkdir /home/models
 COPY  Task003_Liver.zip /home/models
 COPY pipeline.sh /home
 COPY predict.sh /home
-COPY listdir.py /home
+# COPY listdir.py /home
 COPY App.py /home
 COPY info.json /home
 RUN mkdir /home/templates
