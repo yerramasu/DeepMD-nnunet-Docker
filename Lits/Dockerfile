@@ -26,7 +26,7 @@ RUN mkdir /home/templates
 COPY templates/upload.html /home/templates
 # Installing nnU-Net
 RUN cd /home && \
-  mkdir /home/input && \
+  #mkdir /home/input && \
   #mkdir /home/output && \
   mkdir /home/nnUNet && \
   pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113 && \
