@@ -28,8 +28,10 @@ spec:
       - name: hepatic
       
         image: anilyerramasu/seghepaticvessel_3d_gpu
+        
         ports:
           - containerPort: 5000
+        imagePullPolicy: Always
         volumeMounts:
           - name: deepmd-storage-input
             mountPath: /home/input
