@@ -1,0 +1,7 @@
+{
+    "ModelName":"Multi-Atlas Labeling Beyond the Cranial Vault - Abdomen",
+    "ModelDescription":"Segmentation targets are thirteen different abdominal organs",
+    "ImageModality":"Input modalities are 0: abdominal CT scan.",
+    "URIPath":"/abdoman/prediction",
+    "Method": "POST"
+ }
