@@ -1,0 +1,7 @@
+{
+    "ModelName":"Hepatic Vessel Segmentation.",
+    "ModelDescription":"Segmentation targets are hepatic vesels and liver tumors",
+    "ImageModality":"Input modalities are 0: abdominal CT scan.",
+    "URIPath":"/hepatic/predict",
+    "Method": "POST"
+ }
