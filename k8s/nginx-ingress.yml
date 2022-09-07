@@ -37,6 +37,13 @@ spec:
             name: hepatic-service
             port:
               number: 5000
+      - path: /spleen
+        pathType: Prefix
+        backend:
+          service:
+            name: spleen-service
+            port:
+              number: 5000
       - path: /lung
         pathType: Prefix
         backend:
