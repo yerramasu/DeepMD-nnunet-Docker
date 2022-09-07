@@ -23,6 +23,13 @@ spec:
             name: thor-service
             port:
               number: 5000
+      - path: /hepatic
+        pathType: Prefix
+        backend:
+          service:
+            name: hepatic-service
+            port:
+              number: 5000
       - path: /lung
         pathType: Prefix
         backend:
