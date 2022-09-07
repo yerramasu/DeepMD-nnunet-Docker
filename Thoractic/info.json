@@ -1,0 +1,7 @@
+{
+    "ModelName":"Segmentation of THoracic Organs at Risk in CT images",
+    "ModelDescription":"Segmentation targets are aorta, esophagus, heart and trachea",
+    "ImageModality":"Input modalities are 0: abdominal CT scan.",
+    "URIPath":"/thoractic/prediction",
+    "Method": "POST"
+ }
