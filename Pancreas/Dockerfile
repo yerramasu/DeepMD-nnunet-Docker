@@ -47,7 +47,7 @@ RUN cd /home && \
   #pip3 install progress && \
   #pip3 install graphviz && \
   # nnUNet_download_pretrained_model Task003_Liver &&  \
-  nnUNet_install_pretrained_model_from_zip /home/models/TTask007_Pancreas.zip   && \
+  nnUNet_install_pretrained_model_from_zip /home/models/Task007_Pancreas.zip   && \
   cd /home
 RUN chmod +x /home/pipeline.sh
 RUN chmod +x /home/predict.sh
