@@ -37,7 +37,7 @@ def allowed_file(filename):
 def upload_form():
     return render_template('upload.html')
 
-@app.route('/')
+@app.route('/lits')
 def home():
   filename = 'info.json'
 #   os.path.join(app.static_folder, 'info.json')
