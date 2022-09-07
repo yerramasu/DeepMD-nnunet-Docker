@@ -1,6 +1,6 @@
 {
-    "ModelName":"Kidney and Kidney Tumor Segmentation ",
-    "ModelDescription":"Segmentation targets kidney and kidney tumors",
+    "ModelName":"Liver and Liver Tumor Segmentation Challenge. ",
+    "ModelDescription":"Segmentation targets are liver and liver tumors",
     "ImageModality":"Input modalities are 0: abdominal CT scan.",
     "URIPath":"/lits/prediction",
     "Method": "POST"
