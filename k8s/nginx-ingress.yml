@@ -16,7 +16,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /thor
+      - path: /thoractic
         pathType: Prefix
         backend:
           service:
