@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+
+kind: Deployment
+metadata:
+  name: lung-deployment
+  namespace: deepmd
+spec:
+  selector:
+    matchLabels:
+      app: lung
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: lung
+    spec:
+      volumes:
+      - name: deepmd-storage-input
+        hostPath:
+          path: /tmp/deepmd/lung/input
+          type: DirectoryOrCreate
+      - name: deepmd-storage-output
+        hostPath:
+          path: /tmp/deepmd/lung/output
+          type: DirectoryOrCreate
+
+      containers:
+      - name: lung
+      
+        image: anilyerramasu/seglung_3d_gpu
+        
+        ports:
+          - containerPort: 5000
+        imagePullPolicy: Always
+        volumeMounts:
+          - name: deepmd-storage-input
+            mountPath: /home/input
+          - name: deepmd-storage-output
+            mountPath: /home/output
+        readinessProbe:
+            httpGet:
+              path: /lung
+              port: 5000
+            initialDelaySeconds: 30
+            periodSeconds: 3
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lung-service
+  namespace: deepmd
+spec:
+  ports:
+  - port: 5000
+    targetPort: 5000
+    name: http
+  selector:
+    app: lung
