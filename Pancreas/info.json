@@ -1,0 +1,7 @@
+{
+    "ModelName":"Pancreas Segmentation",
+    "ModelDescription":"Segmentation targets are pancras and pancreas tumor",
+    "ImageModality":"Input modalities are 0: abdominal CT scan",
+    "URIPath":"/pancreas/predict",
+    "Method": "POST"
+ }
