@@ -74,7 +74,7 @@ def upload():
         print("input dir = ",my)
         # subprocess.check_output("/home/predict.sh", shell=True)
         subprocess.check_output("/home/predict.sh", shell=True)
-        return redirect('/abdoman/predict')
+        return redirect('/lung/predict')
 
 @app.route('/lung/prediction', methods=['POST'])
 def prediction():
@@ -84,7 +84,7 @@ def prediction():
 
         
         subprocess.check_output("/home/predict.sh", shell=True)
-        return redirect('/abdoman/test')
+        return redirect('/lung/test')
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=5000,debug=False,threaded=True)
