@@ -1,0 +1,7 @@
+{
+    "ModelName":"Spleen Segmentation",
+    "ModelDescription":"Segmentation target is the spleen",
+    "ImageModality":"Input modalities are 0: abdominal CT scan.",
+    "URIPath":"/spleen/prediction",
+    "Method": "POST"
+ }
