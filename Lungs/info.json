@@ -1,0 +1,7 @@
+{
+    "ModelName":"Lung Nodule Segmentation",
+    "ModelDescription":"Segmentation target are lung nodules",
+    "ImageModality":"Input modalities are 0: abdominal CT scan.",
+    "URIPath":"/lung/prediction",
+    "Method": "POST"
+ }
