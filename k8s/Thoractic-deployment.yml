@@ -2,7 +2,7 @@ apiVersion: apps/v1
 
 kind: Deployment
 metadata:
-  name: thoractic-deployment
+  name: thor-deployment
   namespace: deepmd
 spec:
   selector:
@@ -17,7 +17,7 @@ spec:
       volumes:
       - name: deepmd-storage-input
         hostPath:
-          path: /tmp/deepmd/input
+          path: /tmp/deepmd/thor/input
           type: DirectoryOrCreate
       - name: deepmd-storage-output
         hostPath:
@@ -28,8 +28,10 @@ spec:
       - name: thor
       
         image: anilyerramasu/segthor_3d_gpu
+        
         ports:
           - containerPort: 5000
+        imagePullPolicy: Always
         volumeMounts:
           - name: deepmd-storage-input
             mountPath: /home/input
