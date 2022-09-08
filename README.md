@@ -16,4 +16,4 @@ microk8s status --wait-ready
 microk8s kubectl get nodes
 microk8s kubectl get services
 
-microk8s enable gpu
+microk8s enable gpu ingress dns storage 

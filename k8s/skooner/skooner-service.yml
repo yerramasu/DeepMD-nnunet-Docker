@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: http-ingress-default
+  namespace: kube-system
+  annotations:
+    nginx.ingress.kubernetes.io/ingress.class: public
+    # nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/proxy-body-size: 800m
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "60000"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "60000"
+    
+    
+spec:
+
+  rules:
+  - host: cloud.deepmd.io
+    http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: skooner
+            port:
+              number: 80

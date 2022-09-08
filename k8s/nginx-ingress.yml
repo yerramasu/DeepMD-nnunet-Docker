@@ -14,7 +14,8 @@ metadata:
 spec:
 
   rules:
-  - http:
+  - host: models.deepmd.io
+    http:
       paths:
       - path: /thoractic
         pathType: Prefix
@@ -65,10 +66,4 @@ spec:
             name: lits-service
             port:
               number: 5000
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: hepatic-service
-            port:
-              number: 5000
+      
