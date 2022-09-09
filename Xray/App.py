@@ -64,8 +64,8 @@ def upload():
             filename = secure_filename(file.filename)
             print(filename)
             temp_dir = tempfile.TemporaryDirectory()
-            file.save(os.path.join(temp_dir, filename))
-            output = xray.predict(os.path.join(temp_dir, filename))
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            output = xray.predict(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             
 
         
