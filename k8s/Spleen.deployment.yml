@@ -17,11 +17,11 @@ spec:
       volumes:
       - name: deepmd-storage-input
         hostPath:
-          path: /tmp/deepmd/spleen/input
+          path: /home/ubuntu/storage1/deepmd/spleen/input
           type: DirectoryOrCreate
       - name: deepmd-storage-output
         hostPath:
-          path: /tmp/deepmd/spleen/output
+          path: /home/ubuntu/storage1/deepmd/spleen/output
           type: DirectoryOrCreate
 
       containers:

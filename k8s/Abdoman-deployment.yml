@@ -17,11 +17,11 @@ spec:
       volumes:
       - name: deepmd-storage-input
         hostPath:
-          path: /tmp/deepmd/abdoman/input
+          path: /home/ubuntu/storage1/deepmd/abdoman/input
           type: DirectoryOrCreate
       - name: deepmd-storage-output
         hostPath:
-          path: /tmp/deepmd/abdoman/output
+          path: /home/ubuntu/storage1/deepmd/abdoman/output
           type: DirectoryOrCreate
 
       containers:

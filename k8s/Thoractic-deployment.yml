@@ -17,11 +17,11 @@ spec:
       volumes:
       - name: deepmd-storage-input
         hostPath:
-          path: /tmp/deepmd/thor/input
+          path: /home/ubuntu/storage1/deepmd/thor/input
           type: DirectoryOrCreate
       - name: deepmd-storage-output
         hostPath:
-          path: /tmp/deepmd/thor/output
+          path: /home/ubuntu/storage1/deepmd/thor/output
           type: DirectoryOrCreate
 
       containers:

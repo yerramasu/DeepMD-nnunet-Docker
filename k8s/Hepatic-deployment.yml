@@ -17,11 +17,11 @@ spec:
       volumes:
       - name: deepmd-storage-input
         hostPath:
-          path: /tmp/deepmd/hepatic/input
+          path: /home/ubuntu/storage1/deepmd/hepatic/input
           type: DirectoryOrCreate
       - name: deepmd-storage-output
         hostPath:
-          path: /tmp/deepmd/hepatic/output
+          path: /home/ubuntu/storage1/deepmd/hepatic/output
           type: DirectoryOrCreate
 
       containers:

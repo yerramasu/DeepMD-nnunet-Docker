@@ -17,11 +17,11 @@ spec:
       volumes:
       - name: deepmd-storage-input
         hostPath:
-          path: /tmp/deepmd/pancreas/input
+          path: /home/ubuntu/storage1/deepmd/pancreas/input
           type: DirectoryOrCreate
       - name: deepmd-storage-output
         hostPath:
-          path: /tmp/deepmd/pancreas/output
+          path: /home/ubuntu/storage1/deepmd/pancreas/output
           type: DirectoryOrCreate
 
       containers:
