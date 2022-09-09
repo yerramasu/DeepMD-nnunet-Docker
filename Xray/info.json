@@ -1,0 +1,7 @@
+{
+    "ModelName":"Chest X-Ray Abnormalities",
+    "ModelDescription":"Predict abnormalities in Chest X-Ray",
+    "ImageModality":"Input modalities are 0: Chest X-ray jpeg, jpg, ,png or DICOM.",
+    "URIPath":"/cxr/predict",
+    "Method": "POST"
+ }
