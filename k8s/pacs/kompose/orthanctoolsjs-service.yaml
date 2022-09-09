@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: deepmd-pacs
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+    traefik.docker.network: web
+    traefik.enable: "true"
+    traefik.http.routers.blog.entrypoints: websecure
+    traefik.http.routers.blog.rule: Host(`0e44be91-4285-440b-a132-c6580851eed7.pub.instances.scw.cloud`)
+    traefik.port: "4000"
+  creationTimestamp: null
+  labels:
+    io.kompose.service: orthanctoolsjs
+  name: orthanctoolsjs
+spec:
+  ports:
+    - name: "4000"
+      port: 4000
+      targetPort: 4000
+  selector:
+    io.kompose.service: orthanctoolsjs
+status:
+  loadBalancer: {}

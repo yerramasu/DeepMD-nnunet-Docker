@@ -1,0 +1,74 @@
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pacs-deployment
+  namespace: deepmd-pacs
+spec:
+  selector:
+    matchLabels:
+      app: pacs
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pacs
+    spec:
+      volumes:
+      - name: deepmd-storage-input
+        hostPath:
+          path: /home/ubuntu/storage1/deepmd/orthanc/db
+          type: DirectoryOrCreate
+      containers:
+        - name: pacs
+          image: anilyerramasu/pacs-tools:latest
+          ports:
+            - containerPort: 4000
+              name: pacs-port
+            
+          env:
+            - name: TZ
+              value: "Europe/Paris"
+            - name: ORTHANC_ADDRESS
+              value: "http://35.202.115.123"
+            - name: ORTHANC_PORT
+              value: "8042"
+            - name: ORTHANC_USERNAME
+              value: ""
+            - name: ORTHANC_PASSWORD
+              value: ""
+            - name: DOMAIN_PROTOCOL
+              value: "http"
+            - name: DOMAIN_ADDRESS
+              value: "0e44be91-4285-440b-a132-c6580851eed7.pub.instances.scw.cloud"
+            - name: REDIS_HOST
+              value: "redis"
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_PASSWORD
+              value: ""
+            - name: DB_USERNAME
+              value: "postgres"
+            - name: DB_PASSWORD
+              value: "postgres"
+            - name: DB_HOST
+              value: "postgres"
+            
+          volumeMounts:
+            - name: deepmd-storage-input
+              mountPath: /var/lib/orthanc/db
+      
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pacs-service
+  namespace: deepmd
+spec:
+  selector:
+    app: orthanc
+  ports:
+    - port: 4000
+      targetPort: 4000
+

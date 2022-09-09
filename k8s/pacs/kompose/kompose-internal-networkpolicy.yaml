@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  creationTimestamp: null
+  name: kompose-internal
+  namespace: deepmd-pacs
+spec:
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              io.kompose.network/kompose-internal: "true"
+  podSelector:
+    matchLabels:
+      io.kompose.network/kompose-internal: "true"

@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: deepmd-pacs
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+    traefik.docker.network: web
+    traefik.enable: "true"
+    traefik.http.routers.blog.entrypoints: websecure
+    traefik.http.routers.blog.rule: Host(`0e44be91-4285-440b-a132-c6580851eed7.pub.instances.scw.cloud`)
+    traefik.port: "4000"
+  creationTimestamp: null
+  labels:
+    io.kompose.service: orthanctoolsjs
+  name: orthanctoolsjs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: orthanctoolsjs
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.0 (40646f47)
+        traefik.docker.network: web
+        traefik.enable: "true"
+        traefik.http.routers.blog.entrypoints: websecure
+        traefik.http.routers.blog.rule: Host(`0e44be91-4285-440b-a132-c6580851eed7.pub.instances.scw.cloud`)
+        traefik.port: "4000"
+      creationTimestamp: null
+      labels:
+        io.kompose.network/kompose-internal: "true"
+        io.kompose.network/web: "true"
+        io.kompose.service: orthanctoolsjs
+    spec:
+      containers:
+        - env:
+            - name: DB_HOST
+              value: postgres
+            - name: DB_NAME
+              value: orthanctoolsjs
+            - name: DB_PASSWORD
+              value: postgres
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USERNAME
+              value: postgres
+            - name: DOMAIN_ADDRESS
+              value: 0e44be91-4285-440b-a132-c6580851eed7.pub.instances.scw.cloud
+            - name: DOMAIN_PROTOCOL
+              value: https
+            - name: ORTHANC_ADDRESS
+              value: http://35.202.115.123
+            - name: ORTHANC_PASSWORD
+            - name: ORTHANC_PORT
+              value: "8042"
+            - name: ORTHANC_USERNAME
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PASSWORD
+            - name: REDIS_PORT
+              value: "6379"
+            - name: TZ
+              value: Europe/Paris
+          image: anilyerramasu/pacs-tools
+          name: orthanctoolsjs
+          ports:
+            - containerPort: 4000
+          resources: {}
+          volumeMounts:
+            - mountPath: /OrthancToolsJs/data
+              name: orthanctoolsjs
+      restartPolicy: Always
+      volumes:
+        - name: orthanctoolsjs
+          persistentVolumeClaim:
+            claimName: orthanctoolsjs
+status: {}
