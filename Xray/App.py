@@ -117,8 +117,8 @@ def upload():
             filename = secure_filename(file.filename)
             print(filename)
             temp_dir = tempfile.TemporaryDirectory()
-            file.save(os.path.join("/tmp", filename))
-            output = predictCXR(os.path.join("/tmp", filename))
+            file.save(os.path.join("/home/xray/input", filename))
+            output = predictCXR(os.path.join("/home/xray/input", filename))
             
 
         print(output)
