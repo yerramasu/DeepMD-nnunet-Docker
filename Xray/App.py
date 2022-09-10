@@ -79,12 +79,12 @@ def predictCXR(filename):
     # Add color channel
     img = img[None, :, :]
 
-    # transform = torchvision.transforms.Compose([xrv.datasets.XRayCenterCrop()])
+    transform = torchvision.transforms.Compose([xrv.datasets.XRayCenterCrop()])
 
     img = transform(img)
 
 
-    # model = xrv.models.get_model("densenet121-res224-all")
+    model = xrv.models.get_model("densenet121-res224-all")
 
     output = {}
     with torch.no_grad():
@@ -117,12 +117,13 @@ def upload():
             filename = secure_filename(file.filename)
             print(filename)
             temp_dir = tempfile.TemporaryDirectory()
-            file.save(os.path.join("/home/input", filename))
-            output = predictCXR(os.path.join("/home/input", filename))
+            file.save(os.path.join("/tmp", filename))
+            output = predictCXR(os.path.join("/tmp", filename))
             
 
-        
-        return output
+        print(output)
+
+        return json.dumps(str(output))
 
 
 if __name__ == "__main__":
