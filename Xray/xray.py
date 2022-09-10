@@ -15,8 +15,21 @@ import torchvision, torchvision.transforms
 import torchxrayvision as xrv
 
 def predict(filename):
-    img = skimage.io.imread(filename)
-    img = xrv.datasets.normalize(img, 255)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-f', type=str, default="", help='')
+    parser.add_argument('img_path', type=str,default = filename)
+    parser.add_argument('-weights', type=str,default="densenet121-res224-all")
+    parser.add_argument('-feats', default=False, help='', action='store_true')
+    parser.add_argument('-cuda', default=False, help='', action='store_true')
+    parser.add_argument('-resize', default=False, help='', action='store_true')
+
+    cfg = parser.parse_args()
+
+
+    img = skimage.io.imread(cfg.img_path)
+    img = xrv.datasets.normalize(img, 255)  
+
+    # Check that images are 2D arrays
     if len(img.shape) > 2:
         img = img[:, :, 0]
     if len(img.shape) < 2:
@@ -25,21 +38,33 @@ def predict(filename):
     # Add color channel
     img = img[None, :, :]
 
-    transform = torchvision.transforms.Compose([xrv.datasets.XRayCenterCrop(),
-                                                xrv.datasets.XRayResizer(224)])
+
+    # the models will resize the input to the correct size so this is optional.
+    if cfg.resize:
+        transform = torchvision.transforms.Compose([xrv.datasets.XRayCenterCrop(),
+                                                    xrv.datasets.XRayResizer(224)])
+    else:
+        transform = torchvision.transforms.Compose([xrv.datasets.XRayCenterCrop()])
 
     img = transform(img)
-    model = xrv.models.get_model("densenet121-res224-all")
+
+
+    model = xrv.models.get_model(cfg.weights)
+
     output = {}
     with torch.no_grad():
         img = torch.from_numpy(img).unsqueeze(0)
-    
-        img = img.cuda()
-        model = model.cuda()
-    
+        if cfg.cuda:
+            img = img.cuda()
+            model = model.cuda()
+            
+        if cfg.feats:
+            feats = model.features(img)
+            feats = F.relu(feats, inplace=True)
+            feats = F.adaptive_avg_pool2d(feats, (1, 1))
+            output["feats"] = list(feats.cpu().detach().numpy().reshape(-1))
 
         preds = model(img).cpu()
         output["preds"] = dict(zip(xrv.datasets.default_pathologies,preds[0].detach().numpy()))
-    return output
 
 

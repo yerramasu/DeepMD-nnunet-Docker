@@ -6,8 +6,22 @@ import subprocess
 import json
 import shutil
 from flask import jsonify
-import xray
+# import xray
 import tempfile
+import os,sys
+sys.path.insert(0,"..")
+from glob import glob
+import matplotlib.pyplot as plt
+import numpy as np
+import argparse
+import skimage, skimage.io
+import pprint
+
+import torch
+import torch.nn.functional as F
+import torchvision, torchvision.transforms
+
+import torchxrayvision as xrv
 app=Flask(__name__)
 
 app.secret_key = "secret key"
@@ -17,6 +31,8 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 * 1024 * 1024
 path = os.getcwd()
 # file Upload
 UPLOAD_FOLDER = "/home/input"
+transform = torchvision.transforms.Compose([xrv.datasets.XRayCenterCrop()])
+model = xrv.models.get_model("densenet121-res224-all")
 # os.path.join(path, 'uploads')
 
 # Make directory if uploads is not exists
@@ -47,6 +63,43 @@ def home():
 #   message = "Kidney and Kidney Tumor Segmentation Challenge." +" Segmentation targets kidney and kidney tumors," +"Input modalities are 0: abdominal CT scan.  \n"
   return jsonify(message)
 
+
+def predictCXR(filename):
+    
+
+    img = skimage.io.imread(filename)
+    img = xrv.datasets.normalize(img, 255)  
+
+    # Check that images are 2D arrays
+    if len(img.shape) > 2:
+        img = img[:, :, 0]
+    if len(img.shape) < 2:
+        print("error, dimension lower than 2 for image")
+
+    # Add color channel
+    img = img[None, :, :]
+
+    # transform = torchvision.transforms.Compose([xrv.datasets.XRayCenterCrop()])
+
+    img = transform(img)
+
+
+    # model = xrv.models.get_model("densenet121-res224-all")
+
+    output = {}
+    with torch.no_grad():
+        img = torch.from_numpy(img).unsqueeze(0)
+        
+        img = img.cuda()
+        model = model.cuda()
+            
+        
+
+        preds = model(img).cpu()
+        output["preds"] = dict(zip(xrv.datasets.default_pathologies,preds[0].detach().numpy()))
+        return output
+
+
 @app.route('/cxr/predict', methods=['POST'])
 def upload():
     shutil.rmtree(app.config['UPLOAD_FOLDER'], ignore_errors=True)
@@ -64,8 +117,8 @@ def upload():
             filename = secure_filename(file.filename)
             print(filename)
             temp_dir = tempfile.TemporaryDirectory()
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            output = xray.predict(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            file.save(os.path.join("/home/input", filename))
+            output = predictCXR(os.path.join("/home/input", filename))
             
 
         
