@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: http-ingress-default
-  namespace: deepmd
+  namespace: deepmd-pc
   annotations:
     nginx.ingress.kubernetes.io/ingress.class: public
     # nginx.ingress.kubernetes.io/rewrite-target: /$1
@@ -14,8 +14,8 @@ metadata:
 spec:
 
   rules:
-  
-  -  http:
+  - host: models.deepmd.io
+    http:
       paths:
       - path: /cxr
         pathType: Prefix
@@ -24,4 +24,3 @@ spec:
             name: cxr-service
             port:
               number: 5000
- 

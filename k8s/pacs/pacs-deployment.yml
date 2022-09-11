@@ -24,7 +24,7 @@ spec:
         - name: pacs
           image: anilyerramasu/pacs-tools:latest
           ports:
-            - containerPort: 4000
+            - containerPort: 8042
               name: pacs-port
             
           env:
@@ -40,14 +40,9 @@ spec:
               value: ""
             - name: DOMAIN_PROTOCOL
               value: "http"
-            - name: DOMAIN_ADDRESS
-              value: "0e44be91-4285-440b-a132-c6580851eed7.pub.instances.scw.cloud"
-            - name: REDIS_HOST
-              value: "redis"
-            - name: REDIS_PORT
-              value: "6379"
-            - name: REDIS_PASSWORD
-              value: ""
+            # - name: DOMAIN_ADDRESS
+            #   value: "0e44be91-4285-440b-a132-c6580851eed7.pub.instances.scw.cloud"
+            
             - name: DB_USERNAME
               value: "postgres"
             - name: DB_PASSWORD
@@ -69,6 +64,6 @@ spec:
   selector:
     app: orthanc
   ports:
-    - port: 4000
-      targetPort: 4000
+    - port: 8042
+      targetPort: 8042
 
