@@ -49,13 +49,9 @@ def home():
 
 @app.route('/dicom/upload', methods=['POST'])
 def upload():
-    shutil.rmtree(app.config['UPLOAD_FOLDER'], ignore_errors=True)
-    # os.mkdir(app.config['UPLOAD_FOLDER'])
+    
     if request.method == 'POST':
 
-        if 'files[]' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
 
         files = request.files.getlist('files[]')
 

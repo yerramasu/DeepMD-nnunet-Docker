@@ -1,18 +1,18 @@
 # Parent Image
 FROM nvcr.io/nvidia/pytorch:20.10-py3
 
-RUN apt-get update && apt-get upgrade -y
-RUN apt-get install -y wget
-RUN apt-get install -y unzip
-RUN apt install -y plastimatch
-RUN apt install -y subversion
+RUN sudo apt-get update && apt-get upgrade -y
+RUN sudo apt-get install -y wget
+RUN sudo apt-get install -y unzip
+RUN sudo apt install -y plastimatch
+RUN sudo apt install -y subversion
 RUN cd /home
 RUN tar zxvf dcmqi-1.2.4-linux.tar.gz
 RUN cp dcmqi-1.2.4-linux/bin/* /usr/local/bin/
 RUN wget https://github.com/QIICR/dcmqi/releases/download/v1.2.4/dcmqi-1.2.4-linux.tar.gz
 RUN cd /home
 RUN tar zxvf dcmqi-1.2.4-linux.tar.gz
-RUN cp dcmqi-1.2.4-linux/bin/* /usr/local/bin/
+#RUN cp dcmqi-1.2.4-linux/bin/* /usr/local/bin/
 # RUN pip install nnunet
 RUN pip install pydicom
 # RUN pip3 install virtualenv 
@@ -40,8 +40,8 @@ RUN cd /home && \
   #mkdir /home/input && \
   #mkdir /home/output && \
   mkdir /home/nnUNet && \
-  pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113 && \
-  pip install nnunet && \
+  # pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113 && \
+  # pip install nnunet && \
   pip install flask && \
   #git clone https://github.com/MIC-DKFZ/nnUNet.git  && \
   mkdir /home/nnUNet/input && \
@@ -58,7 +58,7 @@ RUN cd /home && \
   #pip3 install progress && \
   #pip3 install graphviz && \
   # nnUNet_download_pretrained_model Task003_Liver &&  \
-  nnUNet_install_pretrained_model_from_zip /home/models/Task017_AbdominalOrganSegmentation.zip   && \
+  #nnUNet_install_pretrained_model_from_zip /home/models/Task017_AbdominalOrganSegmentation.zip   && \
   cd /home
 RUN chmod +x /home/pipeline.sh
 RUN chmod +x /home/predict.sh
