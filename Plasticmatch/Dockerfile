@@ -4,8 +4,8 @@ FROM nvcr.io/nvidia/pytorch:20.10-py3
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y wget
 RUN apt-get install -y unzip
-RUN apt install plastimatch
-RUN apt install subversion
+RUN apt install -y plastimatch
+RUN apt install -y subversion
 RUN cd /home
 RUN tar zxvf dcmqi-1.2.4-linux.tar.gz
 RUN cp dcmqi-1.2.4-linux/bin/* /usr/local/bin/
