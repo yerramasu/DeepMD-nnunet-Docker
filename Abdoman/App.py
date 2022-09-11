@@ -65,7 +65,7 @@ def upload():
         for file in files:
             filename = secure_filename(file.filename)
             print(filename)
-            file.save(inputDir, filename)
+            file.save(os.path.join(inputDir), filename)
             # if file and allowed_file(file.filename):
             #     filename = secure_filename(file.filename)
             #     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
