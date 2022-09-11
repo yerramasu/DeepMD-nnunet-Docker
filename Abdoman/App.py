@@ -6,6 +6,7 @@ import subprocess
 import json
 import shutil
 from flask import jsonify
+import tempfile
 
 
 app=Flask(__name__)
@@ -49,20 +50,22 @@ def home():
 
 @app.route('/abdoman/predict', methods=['POST'])
 def upload():
-    shutil.rmtree(app.config['UPLOAD_FOLDER'], ignore_errors=True)
+   
     # os.mkdir(app.config['UPLOAD_FOLDER'])
     if request.method == 'POST':
 
-        if 'files[]' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
+        
 
         files = request.files.getlist('files[]')
+        inputDir = tempfile.mkdtemp()
+        os.environ['inputDir'] = inputDir
+        outDir = tempfile.mkdtemp()
+        os.environ['outDir'] = outDir
 
         for file in files:
             filename = secure_filename(file.filename)
             print(filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            file.save(inputDir, filename)
             # if file and allowed_file(file.filename):
             #     filename = secure_filename(file.filename)
             #     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
