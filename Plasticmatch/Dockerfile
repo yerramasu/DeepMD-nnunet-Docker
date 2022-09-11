@@ -1,11 +1,11 @@
 # Parent Image
 FROM nvcr.io/nvidia/pytorch:20.10-py3
 
-RUN sudo apt-get update && apt-get upgrade -y
-RUN sudo apt-get install -y wget
-RUN sudo apt-get install -y unzip
-RUN sudo apt install -y plastimatch
-RUN sudo apt install -y subversion
+RUN  apt-get update && apt-get upgrade -y
+RUN  apt-get install -y wget
+RUN  apt-get install -y unzip
+RUN  apt install -y plastimatch
+RUN  apt install -y subversion
 RUN cd /home
 
 RUN wget https://github.com/QIICR/dcmqi/releases/download/v1.2.4/dcmqi-1.2.4-linux.tar.gz
