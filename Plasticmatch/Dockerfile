@@ -7,12 +7,11 @@ RUN sudo apt-get install -y unzip
 RUN sudo apt install -y plastimatch
 RUN sudo apt install -y subversion
 RUN cd /home
-RUN tar zxvf dcmqi-1.2.4-linux.tar.gz
-RUN cp dcmqi-1.2.4-linux/bin/* /usr/local/bin/
+
 RUN wget https://github.com/QIICR/dcmqi/releases/download/v1.2.4/dcmqi-1.2.4-linux.tar.gz
 RUN cd /home
 RUN tar zxvf dcmqi-1.2.4-linux.tar.gz
-#RUN cp dcmqi-1.2.4-linux/bin/* /usr/local/bin/
+RUN cp dcmqi-1.2.4-linux/bin/* /usr/local/bin/
 # RUN pip install nnunet
 RUN pip install pydicom
 # RUN pip3 install virtualenv 
