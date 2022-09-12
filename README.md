@@ -21,3 +21,9 @@ microk8s enable gpu ingress dns storage
 microk8s add-node
 microk8s join 104.171.203.11:25000/826da2c263310e88d0cf9b633998d873/b7f76e311832
 
+UBUNTU: Install Nvidia drivers
+
+ubuntu-drivers devices
+sudo ubuntu-drivers autoinstall
+
+
