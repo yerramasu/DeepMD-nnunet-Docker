@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: http-ingress-default
+  namespace: argo
+  annotations:
+    nginx.ingress.kubernetes.io/ingress.class: public
+    # nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/proxy-body-size: 800m
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "60000"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "60000"
+    nginx.ingress.kubernetes.io/backend-protocol: https
+    
+    
+spec:
+
+  rules:
+  - host: argo.deepmd.io
+    http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: argo-server
+            port:
+              number: 2746
