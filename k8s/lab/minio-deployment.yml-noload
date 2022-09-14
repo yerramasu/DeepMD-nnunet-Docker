@@ -1,0 +1,69 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: minio-pvc
+  namespace: deepmd-lab
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: microk8s-hostpath
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minio-deployment
+  # namespace: deepmd-lab
+spec:
+  selector:
+    matchLabels:
+      app: minio
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: minio
+    spec:
+      volumes:
+        - name: minio-pvc
+          persistentVolumeClaim:
+            claimName: minio-pvc
+      containers:
+        - name: minio
+          image: minio/minio
+          ports:
+            - containerPort: 9000
+              name: minio-port
+            - containerPort: 9001
+              name: console-port
+          command:
+            - "/bin/sh"
+            - "-ce"
+            - "/usr/bin/docker-entrypoint.sh minio server /data --console-address \":9001\""
+          env:
+            - name: MINIO_ROOT_USER
+              value: vindr-lab-api
+            - name: MINIO_ROOT_PASSWORD
+              value: vindr-lab-api
+          volumeMounts:
+            - name: minio-pvc
+              mountPath: /data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio
+  # namespace: deepmd-lab
+spec:
+  selector:
+    app: minio
+  ports:
+    - name: api
+      port: 9000
+      targetPort: 9000
+    - name: console
+      port: 9001
+      targetPort: 9001
