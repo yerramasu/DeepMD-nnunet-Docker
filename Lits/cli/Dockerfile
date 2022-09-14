@@ -47,7 +47,7 @@ RUN chmod +x /home/pipeline.sh
 RUN cd /home
 WORKDIR /home
 # ENV FLASK_APP=App.py
-RUN  /home/pipeline.sh 
+# RUN  /home/pipeline.sh 
 # CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
 ENTRYPOINT ["/home/pipeline.sh"]
 # Installing additional libraries
