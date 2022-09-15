@@ -14,55 +14,14 @@ RUN tar zxvf dcmqi-1.2.4-linux.tar.gz
 RUN cp dcmqi-1.2.4-linux/bin/* /usr/local/bin/
 # RUN pip install nnunet
 RUN pip install pydicom
-# RUN pip3 install virtualenv 
-# COPY env/ /env/
-# RUN  source /env/bin/activate
-# ENV nnUNet_raw_data_base "/home/nnUNet/data/nnUNet_raw_data_base"
-# ENV nnUNet_preprocessed "/home/nnUNet/data/nnUNet_preprocessed"
-# ENV RESULTS_FOLDER "/home/nnUNet/data/models"
-# ENV seg_model_url  "https://www.dropbox.com/s/m7es2ojn8h0ybhv/Task055_SegTHOR.zip?dl=0"
-# ENV output_path  "/home/models/Task002_Heart.zip"
-# RUN mkdir /home/models
-# RUN wget  -O /home/models/Task055_SegTHOR.zip https://www.dropbox.com/s/m7es2ojn8h0ybhv/Task055_SegTHOR.zip?dl=0
-#-O $output_path $seg_model_url
-# RUN mkdir /home/models
-# COPY  Task017_AbdominalOrganSegmentation.zip /home/models
+
 COPY pipeline.sh /home
-COPY predict.sh /home
-# COPY listdir.py /home
-COPY App.py /home
-COPY info.json /home
-RUN mkdir /home/templates
-COPY templates/upload.html /home/templates
+
+
 # Installing nnU-Net
-RUN cd /home && \
-  #mkdir /home/input && \
-  #mkdir /home/output && \
-  mkdir /home/nnUNet && \
-  # pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113 && \
-  # pip install nnunet && \
-  pip install flask && \
-  #git clone https://github.com/MIC-DKFZ/nnUNet.git  && \
-  # mkdir /home/nnUNet/input && \
-#   mkdir /home/models && \
-  # mkdir /home/nnUNet/output && \
-  # mkdir /home/nnUNet/data && \
-  # mkdir /home/nnUNet/data/models && \
-  # mkdir /home/nnUNet/data/nnUNet_raw_data_base && \
-  # mkdir /home/nnUNet/data/nnUNet_preprocessed && \
-  # cd /home/nnUNet && \
-  # pip install -e . && \
-  #pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113 && \
-  #pip install -e . && \
-  #pip3 install progress && \
-  #pip3 install graphviz && \
-  # nnUNet_download_pretrained_model Task003_Liver &&  \
-  #nnUNet_install_pretrained_model_from_zip /home/models/Task017_AbdominalOrganSegmentation.zip   && \
-  cd /home
+RUN cd /home 
+ 
 RUN chmod +x /home/pipeline.sh
-RUN chmod +x /home/predict.sh
-RUN cd /home
 WORKDIR /home
-ENV FLASK_APP=App.py
-# RUN  /home/pipeline.sh 
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+
+ENTRYPOINT ["/home/pipeline.sh"]
