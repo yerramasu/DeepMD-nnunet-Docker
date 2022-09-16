@@ -1,6 +1,6 @@
 # Parent Image
-# FROM nvcr.io/nvidia/pytorch:20.10-py3
-FROM python:3.8-slim-buster
+FROM nvcr.io/nvidia/pytorch:20.10-py3
+# FROM python:3.8-slim-buster
 # RUN  apt-get update && apt-get upgrade -y
 # RUN  apt-get install -y wget
 # RUN  apt-get install -y unzip
