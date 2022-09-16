@@ -7,24 +7,19 @@ FROM python:3.8-slim-buster
 # RUN  apt install -y plastimatch
 # RUN  apt install -y subversion
 RUN cd /home
+RUN mkdir /home/templates
 RUN cp App.py /home
+COPY templates/upload.html /home/templates
 
-RUN wget https://github.com/QIICR/dcmqi/releases/download/v1.2.4/dcmqi-1.2.4-linux.tar.gz
-RUN cd /home
-RUN tar zxvf dcmqi-1.2.4-linux.tar.gz
-RUN cp dcmqi-1.2.4-linux/bin/* /usr/local/bin/
 # RUN pip install nnunet
 RUN pip install pydicom
 RUN pip install flask
 RUN pip install requests
 
-COPY pipeline.sh /home
-
 
 # Installing nnU-Net
-RUN cd /home 
- 
-RUN chmod +x /home/pipeline.sh
+RUN cd /home
 WORKDIR /home
-
-# ENTRYPOINT ["/home/pipeline.sh"]
+ENV FLASK_APP=App.py
+# RUN  /home/pipeline.sh 
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
