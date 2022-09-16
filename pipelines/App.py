@@ -7,12 +7,17 @@ import json
 import shutil
 from flask import jsonify
 import tempfile
+import os
+import unittest
+from pprint import pprint
 
-
-app=Flask(__name__)
-
-images = request.files.getlist('images')
-files = []
-for image in images:
-    files.append(("images", (image.filename, image.read(), image.content_type)))
-r = requests.post(url="http://example.com/post", data={"formdata1": "strvalue", "formdata2": "strvalue2"}, files=files)
+import argo_workflows
+from argo_workflows.api import workflow_service_api
+from argo_workflows.model.container import Container
+from argo_workflows.model.io_argoproj_workflow_v1alpha1_template import IoArgoprojWorkflowV1alpha1Template
+from argo_workflows.model.io_argoproj_workflow_v1alpha1_workflow import IoArgoprojWorkflowV1alpha1Workflow
+from argo_workflows.model.io_argoproj_workflow_v1alpha1_workflow_create_request import \
+    IoArgoprojWorkflowV1alpha1WorkflowCreateRequest
+from argo_workflows.model.io_argoproj_workflow_v1alpha1_workflow_spec import \
+    IoArgoprojWorkflowV1alpha1WorkflowSpec
+from argo_workflows.model.object_meta import ObjectMeta

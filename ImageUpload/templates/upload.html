@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <title>Upload DICOM Instance</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-7 mx-auto">
+                    <h1 class="h2 mt-3 mb-3 text-center">Upload DICOM Files </h1>
+                    <div class="card text-center bg-light text-dark mb-4">
+                        <div class="card-header">
+                            <h3>Select DICOM Files</h3>
+                        </div>
+                        <div class="card-body">
+                            <input type="file" id="select_file" multiple />
+                            <!-- <input type="text" id="url" name="dicomURL" value=""><br> -->
+                        </div>
+                    </div>
+                    <div id="name-group" class="form-group">
+                        
+                    <div id="name-group" class="form-group">
+                        <label for="name">DICOM URL</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="name"
+                          name="name"
+                          value="https://lab.deepmd.io/instances"
+                        />
+                      </div>
+                    <div class="progress" id="progress_bar" style="display:none; ">
+                        <div class="progress-bar" id="progress_bar_process" role="progressbar" style="width:0%">0%</div>
+                    </div>
+                    <div id="uploaded_image" class="row mt-5"></div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+<script>
+function _(element){
+    return document.getElementById(element);
+}
+_('select_file').onchange = function(event){
+
+    var form_data = new FormData();
+
+    var image_number = 1;
+
+    var error = '';
+   
+    for(var count = 0; count < _('select_file').files.length; count++)  {
+        // if(!['image/jpeg', 'image/png', 'video/mp4'].includes(_('select_file').files[count].type)){
+        //     error += '<div class="alert alert-danger"><b>'+image_number+'</b> Selected File must be .jpg or .png Only.</div>';
+        // } else {
+            form_data.append("files[]", _('select_file').files[count]);
+        // }
+        image_number++;
+    }
+    
+    
+    if(error != ''){
+        _('uploaded_image').innerHTML = error;
+        _('select_file').value = '';
+    } else {
+        _('progress_bar').style.display = 'block';
+        var ajax_request = new XMLHttpRequest();
+        ajax_request.open("POST", "/dicom/upload");
+        
+
+
+        form_data.append("dicomURL",_('name').value)
+        // form_data.append("IsSend",IsSend)
+        
+        ajax_request.upload.addEventListener('progress', function(event){
+            var percent_completed = Math.round((event.loaded / event.total) * 100);
+            _('progress_bar_process').style.width = percent_completed + '%';
+            _('progress_bar_process').innerHTML = percent_completed + '% completed';
+        });
+        ajax_request.addEventListener('load', function(event){
+            _('uploaded_image').innerHTML = '<div class="alert alert-success">Files Uploaded Successfully</div>';
+            _('select_file').value = '';
+        });
+        // var name = $( "name" ).val();
+        
+        // form_data.append("dicomURL",name)
+        ajax_request.send(form_data);
+    }
+};
+</script> 
