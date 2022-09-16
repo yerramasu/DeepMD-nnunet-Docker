@@ -8,7 +8,7 @@ FROM python:3.8-slim-buster
 # RUN  apt install -y subversion
 RUN cd /home
 RUN mkdir /home/templates
-RUN cp App.py /home
+COPY App.py /home
 COPY templates/upload.html /home/templates
 
 # RUN pip install nnunet
