@@ -10,6 +10,8 @@ RUN cd /home
 
 RUN wget https://github.com/QIICR/dcmqi/releases/download/v1.2.4/dcmqi-1.2.4-linux.tar.gz
 RUN cd /home
+RUN mkdir /home/input
+RUN mkdir /home/output
 RUN tar zxvf dcmqi-1.2.4-linux.tar.gz
 RUN cp dcmqi-1.2.4-linux/bin/* /usr/local/bin/
 # RUN pip install nnunet
