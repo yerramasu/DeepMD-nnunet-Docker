@@ -4,7 +4,7 @@ FROM nvcr.io/nvidia/pytorch:20.10-py3
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y wget
 RUN apt-get install -y unzip
-RUN apt install plastimatch
+RUN apt-get install -y plastimatch 
 
 RUN cd /home
 RUN mkdir /home/input
