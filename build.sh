@@ -11,7 +11,7 @@ docker build --no-cache -t anilyerramasu/segpancreas_3d_gpu .
 docker run --gpus all --ipc=host --rm -p 5000:5000 -v $(pwd)/input:/home/input -v $(pwd)/output:/home/output anilyerramasu/seghepaticvessel_3d_gpu
 
 
-docker run --gpus all   -d --ipc=host --rm -v $(pwd)/input:/home/input -v $(pwd)/output:/home/output  anilyerramasu/
+docker run --gpus all   -d --ipc=host --rm -p 5000:5000 -v $(pwd)/input:/home/input -v $(pwd)/output:/home/output  anilyerramasu/imageupload
 
 
 

@@ -63,9 +63,9 @@ def upload():
 
         for file in files:
             filename = secure_filename(file.filename)
-            response = requests.post(url,data=file, headers={'Content-Type': 'application/octet-stream'},verify=False)
-            # print(response)
-            data = response.json()
+            # response = requests.post(url,data=file, headers={'Content-Type': 'application/octet-stream'},verify=False)
+            # # print(response)
+            # data = response.json()
             print(filename)
             # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -74,7 +74,8 @@ def upload():
             #     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
         # subprocess.check_output("/home/pipeline.sh", shell=True)
-        return redirect('/dicom/upload')
+        return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+        # return redirect('/dicom/upload')
 
 
 if __name__ == "__main__":
