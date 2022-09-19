@@ -55,8 +55,8 @@ def upload():
 
 
         files = request.files.getlist('files[]')
-        url = request.values.get('dicomURL')
-        print(url)
+        # url = request.values.get('dicomURL')
+        # print(url)
         # IsSend = request.values.get('IsSend')
         # print(IsSend)
         
