@@ -7,8 +7,9 @@ import json
 import shutil
 from flask import jsonify
 import requests
-
-
+import tarfile
+import os.path
+import time
 app=Flask(__name__)
 
 app.secret_key = "secret key"
@@ -74,6 +75,51 @@ def upload():
             #     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
         # subprocess.check_output("/home/pipeline.sh", shell=True)
+        return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+        # return redirect('/dicom/upload')
+
+@app.route('/dicom/upload/v2', methods=['POST'])
+def uploadDICOM():
+    
+    if request.method == 'POST':
+
+
+        files = request.files.getlist('files[]')
+        # url = request.values.get('dicomURL')
+        # print(url)
+        # IsSend = request.values.get('IsSend')
+        # print(IsSend)
+        filename =  time.strftime("%Y%m%d-%H%M%S") +".tar"
+        # print(file)
+        # os.path.join("./input", filename)
+        # print(os.path.join("./input", filename))
+        tar = tarfile.open(os.path.join("./input", filename), "w")
+        # tar = tarfile.open(filename, "w")
+        # create temp directory
+        tempDir = time.strftime("%Y%m%d-%H%M%S")
+        os.makedirs(tempDir)
+        print(tempDir)
+        files2 = os.listdir(tempDir)
+        print(files2)
+        for x in files2:
+          filename = secure_filename(x.filename)
+          print( filename)
+        for file in files:
+            filename = secure_filename(file.filename)
+            print(filename)
+            file.save(os.path.join(tempDir, filename))
+            # tar.add(file)
+
+        # subprocess.check_output("/home/pipeline.sh", shell=True)
+
+        # files2 = os.listdir(tempDir)
+        # print(files2)
+        # for x in files2:
+        #   filename = secure_filename(x.filename)
+        #   print( filename)
+          # tar.add(x)
+        
+        tar.add(tempDir,arcname=os.path.basename(tempDir))
         return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
         # return redirect('/dicom/upload')
 
