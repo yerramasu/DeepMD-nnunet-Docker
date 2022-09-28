@@ -70,7 +70,8 @@ _('select_file').onchange = function(event){
     } else {
         _('progress_bar').style.display = 'block';
         var ajax_request = new XMLHttpRequest();
-        ajax_request.open("POST", "/dicom/upload");
+        // ajax_request.open("POST", "/dicom/upload/v2");
+        ajax_request.open("POST", "http://localhost:8080/dicom");
         
 
 

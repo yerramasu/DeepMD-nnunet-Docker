@@ -1,0 +1,63 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: keycloak-pvc
+  namespace: deepmd
+spec:
+  accessModes:
+    - ReadWriteOnce
+  
+  # storageClassName: local-path
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak-deployment
+  namespace: deepmd
+spec:
+  selector:
+    matchLabels:
+      app: keycloak
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: keycloak
+    spec:
+      volumes:
+        - name: keycloak-pvc
+          persistentVolumeClaim:
+            claimName: keycloak-pvc
+      containers:
+        - name: keycloak
+          image: jboss/keycloak:11.0.2
+          ports:
+            - containerPort: 8080
+              name: keycloak-port
+          env:
+            - name: KEYCLOAK_USER
+              value: admin
+            - name: KEYCLOAK_PASSWORD
+              value: admin
+            - name: JAVA_OPTS
+              value: "-Dkeycloak.profile.feature.scripts=enabled -Dkeycloak.profile.feature.upload_scripts=enabled"
+          volumeMounts:
+            - name: keycloak-pvc
+              mountPath: /opt/jboss/keycloak/standalone/data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: keycloak
+  namespace: deepmd
+spec:
+  selector:
+    app: keycloak
+  ports:
+    - port: 8080
+      targetPort: 8080
+
