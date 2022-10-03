@@ -45,7 +45,7 @@ RUN cd /home && \
   nnUNet_install_pretrained_model_from_zip /home/models/Task006_Lung.zip   && \
   cd /home
 RUN chmod +x /home/pipeline.sh
-RUN chmod +x /home/predict.sh
+
 RUN cd /home
 WORKDIR /home
 
