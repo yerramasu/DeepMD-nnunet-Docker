@@ -87,24 +87,24 @@ def upload():
         return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
         # return redirect('/dicom/upload')
 
-@app.route('/dicom/upload/v2', methods=['POST'])
-def uploadDICOM():
+# @app.route('/dicom/upload/v2', methods=['POST'])
+# def uploadDICOM():
     
-    if request.method == 'POST':
+#     if request.method == 'POST':
 
 
-        files = request.files.getlist('files[]')
+#         files = request.files.getlist('files[]')
         
-        url = "https://lab.deepmd.io/instances"
-        for file in files:
-            filename = secure_filename(file.filename)
-            print(filename)
-            response = requests.post(url,data=file, headers={'Content-Type': 'application/octet-stream'},verify=False)
-            # print(response)
-            data = response.json()
-            print(data)
-        return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
-        # return redirect('/dicom/upload')
+#         url = "https://lab.deepmd.io/instances"
+#         for file in files:
+#             filename = secure_filename(file.filename)
+#             print(filename)
+#             response = requests.post(url,data=file, headers={'Content-Type': 'application/octet-stream'},verify=False)
+#             # print(response)
+#             data = response.json()
+#             print(data)
+#         return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+#         # return redirect('/dicom/upload')
 
 
 if __name__ == "__main__":
