@@ -1,5 +1,6 @@
 #!/bin/bash
 ls /home/nnUNet/input
+rm /home/output/*
 cd /home
 # nohup python App.py &
 rm /home/output/*
