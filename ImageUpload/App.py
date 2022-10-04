@@ -51,7 +51,7 @@ def home():
 
 @app.route('/dicom/upload', methods=['POST'])
 def upload():
-    folder = config['UPLOAD_FOLDER'];
+    folder = app.config['UPLOAD_FOLDER'];
     for filename in os.listdir(folder):
       
       file_path = os.path.join(folder, filename)
