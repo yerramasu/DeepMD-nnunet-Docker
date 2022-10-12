@@ -1,15 +1,17 @@
 # Parent Image
-FROM nvcr.io/nvidia/pytorch:20.10-py3
-
+# FROM nvcr.io/nvidia/pytorch:20.10-py3
+FROM ubuntu:18.04
+# FROM dkimg/opencv:4.6.0-ubuntu
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y wget
 RUN apt-get install -y unzip
 RUN apt-get install -y plastimatch 
-
+# RUN pip3 install dicom2nifti
 RUN cd /home
 RUN mkdir /home/input
 RUN mkdir /home/output
 
+COPY dcm2nifty.py /home
 COPY pipeline.sh /home
 COPY predict.sh /home
 # COPY listdir.py /home

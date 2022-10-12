@@ -18,7 +18,7 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 * 1024 * 1024
 # Get current path
 path = os.getcwd()
 # file Upload
-UPLOAD_FOLDER = "/home/input"
+UPLOAD_FOLDER = "input"
 # os.path.join(path, 'uploads')
 
 # Make directory if uploads is not exists

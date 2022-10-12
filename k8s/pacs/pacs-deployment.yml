@@ -59,7 +59,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: pacs-service
-  namespace: deepmd
+  namespace: deepmd-pacs
 spec:
   selector:
     app: orthanc
