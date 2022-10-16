@@ -14,7 +14,7 @@ metadata:
 spec:
 
   rules:
-  - host: lab.deepmd.io
+  - host: pacs.deepmd.io
     http:
       paths:
       - path: /

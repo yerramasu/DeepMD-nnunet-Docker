@@ -1,75 +1,75 @@
-apiVersion: apps/v1
-kind: Deployment 
-metadata:
-  name: orthanc
-  namespace: deepmd
-  labels:
-    app: orth
-spec:
-  replicas: 3 
-  selector:
-    matchLabels:
-      app: orth
-  template:
-    metadata:
-      labels:
-        app: orth 
-    spec:
-      volumes:
-      - name: cmvol
-        configMap:
-          name: orthanc-app
-          defaultMode: 0755
-      containers:
-      - name: orthanc
-        image: jodogne/orthanc-plugins
+# apiVersion: apps/v1
+# kind: Deployment 
+# metadata:
+#   name: orthanc
+#   namespace: deepmd
+#   labels:
+#     app: orth
+# spec:
+#   replicas: 3 
+#   selector:
+#     matchLabels:
+#       app: orth
+#   template:
+#     metadata:
+#       labels:
+#         app: orth 
+#     spec:
+#       volumes:
+#       - name: cmvol
+#         configMap:
+#           name: orthanc-app
+#           defaultMode: 0755
+#       containers:
+#       - name: orthanc
+#         image: jodogne/orthanc-plugins
         
-        ports:
-          - containerPort: 8042
-        env:
-          - name: ORTHANC_USERNAME
-              value: ""
-          - name: ORTHANC_PASSWORD
-              value: ""
+#         ports:
+#           - containerPort: 8042
+#         env:
+#           - name: ORTHANC_USERNAME
+#               value: ""
+#           - name: ORTHANC_PASSWORD
+#               value: ""
              
-        volumeMounts:
-        - name: cmvol 
-          mountPath: "/run/secrets/orthanc.json"
-          subPath: "orthanc.json"
-          readOnly: true
+#         volumeMounts:
+#         - name: cmvol 
+#           mountPath: "/run/secrets/orthanc.json"
+#           subPath: "orthanc.json"
+#           readOnly: true
 
-        readinessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /app/explorer.html
-            port: 8042
-            scheme: HTTP
-            httpHeaders:
-              - name: Authorization
-                value: Basic b3J0aGFuYzpvcnRoYW5j
-          initialDelaySeconds: 10
-          periodSeconds: 20
-          successThreshold: 1
-          timeoutSeconds: 2
----
-apiVersion: v1
-kind: Service
-metadata:
-  namespace: deepmd
-  name: orthweb
-  labels:
-    service: orthweb
-spec:
-  type: ClusterIP
-  selector:
-    app: orth
-  ports:
-    - name: dicom
-      protocol: TCP
-      port: 4242
-      targetPort: 4242
-    - name: http
-      protocol: TCP
-      port: 8042
-      targetPort: 8042
----
+#         readinessProbe:
+#           failureThreshold: 3
+#           httpGet:
+#             path: /app/explorer.html
+#             port: 8042
+#             scheme: HTTP
+#             httpHeaders:
+#               - name: Authorization
+#                 value: Basic b3J0aGFuYzpvcnRoYW5j
+#           initialDelaySeconds: 10
+#           periodSeconds: 20
+#           successThreshold: 1
+#           timeoutSeconds: 2
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   namespace: deepmd
+#   name: orthweb
+#   labels:
+#     service: orthweb
+# spec:
+#   type: ClusterIP
+#   selector:
+#     app: orth
+#   ports:
+#     - name: dicom
+#       protocol: TCP
+#       port: 4242
+#       targetPort: 4242
+#     - name: http
+#       protocol: TCP
+#       port: 8042
+#       targetPort: 8042
+# ---
