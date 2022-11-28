@@ -50,7 +50,7 @@ def home():
 
 @app.route('/abdoman/predict', methods=['POST'])
 def upload():
-   
+    print("inside ---")
     # os.mkdir(app.config['UPLOAD_FOLDER'])
     if request.method == 'POST':
 
@@ -81,8 +81,8 @@ def upload():
         # return outfile_0000.nii.gz
 
         # return redirect('/abdoman/predict')
-        f = open("/home/output/infile.nii.gz", 'rb')
-        file_to_send = f.read()
+        file_to_send = open("/home/output/infile.nii.gz", 'rb')
+        # file_to_send = f.read()
         return send_file(file_to_send, mimetype="application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip")
 
         
