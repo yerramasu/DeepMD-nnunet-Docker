@@ -1,6 +1,6 @@
 from mailbox import Message
 import os
-from flask import Flask, flash, request, redirect, render_template
+from flask import Flask, flash, request, redirect, render_template, send_file
 from werkzeug.utils import secure_filename
 import subprocess
 import json
@@ -51,8 +51,6 @@ def home():
 def upload():
     
     if request.method == 'POST':
-
-
         files = request.files.getlist('files[]')
 
         for file in files:
@@ -69,10 +67,18 @@ def upload():
         my = os.listdir(app.config['UPLOAD_FOLDER'])
         print("input dir = ",my)
         # subprocess.check_output("/home/predict.sh", shell=True)
-        subprocess.check_output("/home/predict.sh", shell=True)
-        return redirect('/dicom/upload')
+        # subprocess.check_output("/home/predict.sh", shell=True)
+        result = subprocess.run(["/home/predict.sh", "-c", "print('ocean')"],stdout=subprocess.DEVNULL,stderr=subprocess.STDOUT)
+        # file_to_send = open("/home/output/outfile_0000.nii.gz", 'rb')
+        # return send_file("/home/output/outfile_0000.nii.gz", mimetype="application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip")
+        with open("/home/output/outfile_0000.nii.gz", 'rb') as bites:
+            return send_file(
+                        io.BytesIO(bites.read()),
+                        attachment_filename='outfile_0000.nii.gz',
+                        mimetype='application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip'
+                )
 
-@app.route('/abdoman/prediction', methods=['POST'])
+@app.route('/plasticmatch', methods=['POST'])
 def prediction():
     if request.method == 'POST':
 
@@ -80,6 +86,7 @@ def prediction():
 
         
         subprocess.check_output("/home/predict.sh", shell=True)
+        # return outfile_0000.nii.gz
         return redirect('/abdoman/test')
 
 if __name__ == "__main__":

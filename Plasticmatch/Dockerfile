@@ -26,7 +26,7 @@ RUN chmod +x /home/pipeline.sh
 RUN chmod +x /home/predict.sh
 RUN cd /home
 WORKDIR /home
-# ENV FLASK_APP=App.py
+ENV FLASK_APP=App.py
 # RUN  /home/pipeline.sh 
-# CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
-ENTRYPOINT ["/home/predict.sh"]
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+# ENTRYPOINT ["/home/predict.sh"]

@@ -1,7 +1,7 @@
 #!/bin/bash
 # rm -f /home/output/*
 # echo $(plastimatch --version) &&
-rm  /home/output/*
+# rm  /home/output/*
 # pip3 install dicom2nifti
 cd /home/output 
 ls -al /home/input | wc
