@@ -81,12 +81,11 @@ def upload():
         # return outfile_0000.nii.gz
 
         # return redirect('/abdoman/predict')
-        with open("/home/output/outfile_0000.nii.gz", 'rb') as bites:
-            return send_file(
-                        io.BytesIO(bites.read()),
-                        attachment_filename='outfile_0000.nii.gz',
-                        mimetype='application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip'
-                )
+        f = open("/home/output/outfile_0000.nii.gz", 'rb')
+        file_to_send = f.read()
+        return send_file(file_to_send, mimetype="application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip")
+
+        
 
 @app.route('/abdoman/prediction', methods=['POST'])
 def prediction():
