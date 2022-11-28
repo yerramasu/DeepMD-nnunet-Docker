@@ -55,7 +55,7 @@ def upload():
     if request.method == 'POST':
 
         
-
+        print("inside ---")
         files = request.files.getlist('files[]')
         inputDir = tempfile.mkdtemp()
         os.environ['inputDir'] = inputDir
@@ -65,7 +65,7 @@ def upload():
         for file in files:
             filename = secure_filename(file.filename)
             print(filename)
-            file.save(inputDir +"/" +filename)
+            file.save("/home/input/" +filename)
             #file.save(os.path.join(inputDir), filename)
             # if file and allowed_file(file.filename):
             #     filename = secure_filename(file.filename)
