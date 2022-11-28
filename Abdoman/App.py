@@ -5,7 +5,7 @@ from werkzeug.utils import secure_filename
 import subprocess
 import json
 import shutil
-from flask import jsonify
+from flask import jsonify, send_file
 import tempfile
 
 
@@ -78,7 +78,15 @@ def upload():
         print("input dir = ",my)
         # subprocess.check_output("/home/predict.sh", shell=True)
         subprocess.check_output("/home/predict.sh", shell=True)
-        return redirect('/abdoman/predict')
+        # return outfile_0000.nii.gz
+
+        # return redirect('/abdoman/predict')
+        with open("/home/output/outfile_0000.nii.gz", 'rb') as bites:
+            return send_file(
+                        io.BytesIO(bites.read()),
+                        attachment_filename='outfile_0000.nii.gz',
+                        mimetype='application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip'
+                )
 
 @app.route('/abdoman/prediction', methods=['POST'])
 def prediction():
