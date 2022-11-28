@@ -51,6 +51,7 @@ RUN cd /home && \
   cd /home
 RUN chmod +x /home/pipeline.sh
 RUN chmod +x /home/predict.sh
+RUN pip install flask_cors
 RUN cd /home
 WORKDIR /home
 ENV FLASK_APP=App.py

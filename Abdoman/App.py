@@ -83,7 +83,8 @@ def upload():
         # return redirect('/abdoman/predict')
         file_to_send = open("/home/output/infile.nii.gz", 'rb')
         # file_to_send = f.read()
-        return send_file(file_to_send, mimetype="application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip")
+        # return send_file(file_to_send, mimetype="application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip")
+        return send_file("/home/output/infile.nii.gz", mimetype="application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip")
 
         
 
