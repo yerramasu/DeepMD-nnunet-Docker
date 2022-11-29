@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: http-ingress-default
-  namespace: deepmd
+  namespace: deepmd-ml
   annotations:
     # nginx.ingress.kubernetes.io/ingress.class: public
     # nginx.ingress.kubernetes.io/rewrite-target: /$1

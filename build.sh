@@ -3,6 +3,11 @@ After building the image using docker build command,  the container using the fo
 docker build --no-cache -t anilyerramasu/plasticmatch .
 docker run   --rm -p 9000:5000 -v $(pwd)/input:/home/input -v $(pwd)/output:/home/output anilyerramasu/plasticmatch 
 
+
+docker build --no-cache -t anilyerramasu/segliver_3d_gpu .
+docker run   --rm -p 9000:5000 -v $(pwd)/input:/home/input -v $(pwd)/output:/home/output anilyerramasu/segliver_3d_gpu
+
+
 Run Command
 docker build --no-cache -t anilyerramasu/segabdominalorgan_3d_gpu .
 docker run --gpus all   -d --ipc=host --rm -p 5000:5000 -v $(pwd)/input:/home/input -v $(pwd)/output:/home/output  anilyerramasu/segabdominalorgan_3d_gpu 
