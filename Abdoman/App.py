@@ -57,15 +57,16 @@ def upload():
         
         print("inside ---")
         files = request.files.getlist('files[]')
-        inputDir = tempfile.mkdtemp()
+        inputDir = tempfile.mkdtemp(dir="/home/input")
         os.environ['inputDir'] = inputDir
-        outDir = tempfile.mkdtemp()
+        outDir = tempfile.mkdtemp(dir="/home/output")
         os.environ['outDir'] = outDir
 
         for file in files:
             filename = secure_filename(file.filename)
             print(filename)
-            file.save("/home/input/" +filename)
+            file.save(inputDir +"/" +filename)
+            # file.save("/home/input/" +filename)
             #file.save(os.path.join(inputDir), filename)
             # if file and allowed_file(file.filename):
             #     filename = secure_filename(file.filename)
@@ -84,7 +85,9 @@ def upload():
         file_to_send = open("/home/output/infile.nii.gz", 'rb')
         # file_to_send = f.read()
         # return send_file(file_to_send, mimetype="application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip")
-        return send_file("/home/output/infile.nii.gz", mimetype="application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip")
+        # outDir
+        return send_file(outDir +"/infile.nii.gz", mimetype="application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip")
+        # return send_file("/home/output/infile.nii.gz", mimetype="application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip")
 
         
 
