@@ -17,5 +17,7 @@ docker run --gpus all --ipc=host --rm -p 5000:5000 -v $(pwd)/input:/home/input -
 docker run --gpus all   -d --ipc=host --rm -p 5000:5000 -v $(pwd)/input:/home/input -v $(pwd)/output:/home/output  anilyerramasu/imageupload
 anilyerramasu/seglung_3d_gpu_cli
 
+docker build --no-cache -t anilyerramasu/seglung_3d_gpu .
+docker run --gpus all   -d --ipc=host --rm -p 5000:5000 -v $(pwd)/input:/home/input -v $(pwd)/output:/home/output anilyerramasu/seglung_3d_gpu
 kubectl -n argo exec -it <podname> -- /bin/sh
 kubectl -n argo exec -it uploader-deployment-74798f5554-nmg9r -- /bin/sh
