@@ -5,10 +5,11 @@ from werkzeug.utils import secure_filename
 import subprocess
 import json
 import shutil
-from flask import jsonify
-
+from flask import jsonify, send_file
+from flask_cors import CORS
 
 app=Flask(__name__)
+CORS(app)
 
 app.secret_key = "secret key"
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 * 1024 * 1024
@@ -49,20 +50,24 @@ def home():
 
 @app.route('/lung/predict', methods=['POST'])
 def upload():
-    shutil.rmtree(app.config['UPLOAD_FOLDER'], ignore_errors=True)
+    print("inside ---")
     # os.mkdir(app.config['UPLOAD_FOLDER'])
     if request.method == 'POST':
 
-        if 'files[]' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-
+        
+        print("inside ---")
         files = request.files.getlist('files[]')
+        inputDir = tempfile.mkdtemp(dir="/home/input")
+        os.environ['inputDir'] = inputDir
+        outDir = tempfile.mkdtemp(dir="/home/output")
+        os.environ['outDir'] = outDir
 
         for file in files:
             filename = secure_filename(file.filename)
             print(filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            file.save(inputDir +"/" +filename)
+            # file.save("/home/input/" +filename)
+            #file.save(os.path.join(inputDir), filename)
             # if file and allowed_file(file.filename):
             #     filename = secure_filename(file.filename)
             #     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -74,8 +79,17 @@ def upload():
         print("input dir = ",my)
         # subprocess.check_output("/home/predict.sh", shell=True)
         subprocess.check_output("/home/predict.sh", shell=True)
-        return redirect('/lung/predict')
+        # return outfile_0000.nii.gz
 
+        # return redirect('/abdoman/predict')
+        file_to_send = open("/home/output/infile.nii.gz", 'rb')
+        # file_to_send = f.read()
+        # return send_file(file_to_send, mimetype="application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip")
+        # outDir
+        return send_file(outDir +"/infile.nii.gz", mimetype="application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip")
+        # return send_file("/home/output/infile.nii.gz", mimetype="application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip")
+
+      
 @app.route('/lung/prediction', methods=['POST'])
 def prediction():
     if request.method == 'POST':
