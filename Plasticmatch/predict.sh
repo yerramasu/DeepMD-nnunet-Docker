@@ -1,5 +1,5 @@
 #!/bin/bash
-# rm -f /home/output/*
+rm -f /home/output/*
 # echo $(plastimatch --version) &&
 # rm  /home/output/*
 # pip3 install dicom2nifti

@@ -57,26 +57,22 @@ def upload():
             filename = secure_filename(file.filename)
             print(filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            # if file and allowed_file(file.filename):
-            #     filename = secure_filename(file.filename)
-            #     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
-        # flash('File(s) successfully uploaded')
-        # session = Popen(['./some.sh'], stdout=PIPE, stderr=PIPE)
+            
+        
         print(app.config['UPLOAD_FOLDER'])
         my = os.listdir(app.config['UPLOAD_FOLDER'])
         print("input dir = ",my)
-        # subprocess.check_output("/home/predict.sh", shell=True)
-        # subprocess.check_output("/home/predict.sh", shell=True)
+       
         result = subprocess.run(["/home/predict.sh", "-c", "print('ocean')"],stdout=subprocess.DEVNULL,stderr=subprocess.STDOUT)
-        # file_to_send = open("/home/output/outfile_0000.nii.gz", 'rb')
-        # return send_file("/home/output/outfile_0000.nii.gz", mimetype="application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip")
-        with open("/home/output/outfile_0000.nii.gz", 'rb') as bites:
-            return send_file(
-                        io.BytesIO(bites.read()),
-                        attachment_filename='outfile_0000.nii.gz',
-                        mimetype='application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip'
-                )
+        
+        # with open("/home/output/outfile_0000.nii.gz", 'rb') as bites:
+        #     return send_file(
+        #                 io.BytesIO(bites.read()),
+        #                 attachment_filename='outfile_0000.nii.gz',
+        #                 mimetype='application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip'
+ 
+        subprocess.check_output("/home/predict.sh", shell=True)
+        return send_file( "/home/output/outfile_0000.nii.gz", mimetype="application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip")
 
 @app.route('/plasticmatch', methods=['POST'])
 def prediction():
