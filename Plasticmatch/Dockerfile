@@ -28,5 +28,5 @@ RUN cd /home
 WORKDIR /home
 ENV FLASK_APP=App.py
 # RUN  /home/pipeline.sh 
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+CMD [ "python", "-m" , "flask", "run", "--host=0.0.0.0"]
 # ENTRYPOINT ["/home/predict.sh"]
