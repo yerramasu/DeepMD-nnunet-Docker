@@ -71,8 +71,8 @@ def upload():
         #                 attachment_filename='outfile_0000.nii.gz',
         #                 mimetype='application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip'
  
-        subprocess.check_output("/home/predict.sh", shell=True)
-        return send_file( "/home/output/outfile_0000.nii.gz", mimetype="application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip")
+        subprocess.check_output("./predict.sh", shell=True)
+        return send_file( "./output/outfile_0000.nii.gz", mimetype="application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip")
 
 @app.route('/plasticmatch', methods=['POST'])
 def prediction():
