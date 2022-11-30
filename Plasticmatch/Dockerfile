@@ -6,6 +6,7 @@ RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y wget
 RUN apt-get install -y unzip
 RUN apt-get install -y plastimatch 
+RUN apt-get install -y python3
 # RUN pip3 install dicom2nifti
 RUN cd /home
 RUN mkdir /home/input
@@ -28,5 +29,5 @@ RUN cd /home
 WORKDIR /home
 ENV FLASK_APP=App.py
 # RUN  /home/pipeline.sh 
-CMD [ "python", "-m" , "flask", "run", "--host=0.0.0.0"]
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
 # ENTRYPOINT ["/home/predict.sh"]
