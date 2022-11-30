@@ -1,7 +1,7 @@
 # Parent Image
 # FROM nvcr.io/nvidia/pytorch:20.10-py3
-# FROM ubuntu:18.04
-FROM dkimg/opencv:4.6.0-ubuntu
+FROM ubuntu:18.04
+# FROM dkimg/opencv:4.6.0-ubuntu
 # Parent Image
 # FROM tiangolo/uvicorn-gunicorn:python3.8-alpine3.10
 
