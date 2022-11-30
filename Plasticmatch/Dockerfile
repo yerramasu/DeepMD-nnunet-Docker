@@ -23,7 +23,7 @@ COPY info.json /home
 RUN mkdir /home/templates
 COPY templates/upload.html /home/templates
 # Installing nnU-Net
-RUN pip3 install flask 
+RUN pip install flask 
   
 RUN chmod +x /home/pipeline.sh
 RUN chmod +x /home/predict.sh
