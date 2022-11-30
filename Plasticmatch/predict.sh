@@ -3,7 +3,7 @@
 # echo $(plastimatch --version) &&
 # rm  /home/output/*
 # pip3 install dicom2nifti
-cd output 
+# cd output 
 ls -al ./input | wc
 # cd /home
 # python3 dcm2nifty.py
