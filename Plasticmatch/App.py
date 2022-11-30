@@ -16,7 +16,7 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 * 1024 * 1024
 # Get current path
 path = os.getcwd()
 # file Upload
-UPLOAD_FOLDER = "/home/input"
+UPLOAD_FOLDER = "./input"
 # os.path.join(path, 'uploads')
 
 # Make directory if uploads is not exists
@@ -63,7 +63,7 @@ def upload():
         my = os.listdir(app.config['UPLOAD_FOLDER'])
         print("input dir = ",my)
        
-        result = subprocess.run(["/home/predict.sh", "-c", "print('ocean')"],stdout=subprocess.DEVNULL,stderr=subprocess.STDOUT)
+        result = subprocess.run(["./predict.sh", "-c", "print('ocean')"],stdout=subprocess.DEVNULL,stderr=subprocess.STDOUT)
         
         # with open("/home/output/outfile_0000.nii.gz", 'rb') as bites:
         #     return send_file(
