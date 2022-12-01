@@ -66,4 +66,11 @@ spec:
             name: lits-service
             port:
               number: 5000
+      - path: /colon
+        pathType: Prefix
+        backend:
+          service:
+            name: colon-service
+            port:
+              number: 5000
       

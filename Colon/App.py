@@ -35,11 +35,11 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-@app.route('/lits/predict', methods=['GET'])
+@app.route('/colon/predict', methods=['GET'])
 def upload_form():
     return render_template('upload.html')
 
-@app.route('/lits')
+@app.route('/colon')
 def home():
   filename = 'info.json'
 #   os.path.join(app.static_folder, 'info.json')
@@ -49,7 +49,7 @@ def home():
 #   message = "Kidney and Kidney Tumor Segmentation Challenge." +" Segmentation targets kidney and kidney tumors," +"Input modalities are 0: abdominal CT scan.  \n"
   return jsonify(message)
 
-@app.route('/lits/predict', methods=['POST'])
+@app.route('/colon/predict', methods=['POST'])
 def upload():
     print("inside ---")
     # os.mkdir(app.config['UPLOAD_FOLDER'])
@@ -91,7 +91,7 @@ def upload():
         # return send_file("/home/output/infile.nii.gz", mimetype="application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip")
 
       
-@app.route('/lits/prediction', methods=['POST'])
+@app.route('/colon/prediction', methods=['POST'])
 def prediction():
     if request.method == 'POST':
 
