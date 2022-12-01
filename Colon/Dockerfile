@@ -47,8 +47,9 @@ RUN cd /home && \
   #pip3 install progress && \
   #pip3 install graphviz && \
   # nnUNet_download_pretrained_model Task003_Liver &&  \
-  nnUNet_install_pretrained_model_from_zip /home/models/Task048_KiTS_clean.zip   && \
+  nnUNet_install_pretrained_model_from_zip /home/models/Task010_Colon.zip   && \
   cd /home
+RUN pip install flask_cors
 RUN chmod +x /home/pipeline.sh
 RUN chmod +x /home/predict.sh
 RUN cd /home
