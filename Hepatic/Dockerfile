@@ -49,6 +49,7 @@ RUN cd /home && \
   # nnUNet_download_pretrained_model Task003_Liver &&  \
   nnUNet_install_pretrained_model_from_zip /home/models/Task008_HepaticVessel.zip   && \
   cd /home
+  RUN pip install flask_cors
 RUN chmod +x /home/pipeline.sh
 RUN chmod +x /home/predict.sh
 RUN cd /home
