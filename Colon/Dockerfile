@@ -16,7 +16,7 @@ RUN mkdir /home/models
 # RUN wget  -O /home/models/Task055_SegTHOR.zip https://www.dropbox.com/s/m7es2ojn8h0ybhv/Task055_SegTHOR.zip?dl=0
 #-O $output_path $seg_model_url
 # RUN mkdir /home/models
-COPY  Task048_KiTS_clean.zip /home/models
+COPY  Task010_Colon.zip /home/models
 COPY pipeline.sh /home
 COPY predict.sh /home
 # COPY listdir.py /home
