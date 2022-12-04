@@ -1,4 +1,3 @@
-# Parent Image
 FROM nvcr.io/nvidia/pytorch:20.10-py3
 
 # RUN apt-get update && apt-get upgrade -y

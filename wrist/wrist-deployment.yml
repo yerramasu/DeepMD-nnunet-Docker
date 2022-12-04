@@ -2,32 +2,32 @@ apiVersion: apps/v1
 
 kind: Deployment
 metadata:
-  name: hepatic-deployment
-  namespace: deepmd-ml
+  name: wrist-deployment
+  namespace: deepmd-pc
 spec:
   selector:
     matchLabels:
-      app: hepatic
+      app: wrist
   replicas: 1
   template:
     metadata:
       labels:
-        app: hepatic
+        app: wrist
     spec:
       volumes:
       - name: deepmd-storage-input
         hostPath:
-          path: /home/ubuntu/storage1/deepmd/hepatic/input
+          path: /tmp/deepmd/cxr/input
           type: DirectoryOrCreate
       - name: deepmd-storage-output
         hostPath:
-          path: /home/ubuntu/storage1/deepmd/hepatic/output
+          path: /tmp/deepmd/cxr/output
           type: DirectoryOrCreate
 
       containers:
-      - name: hepatic
+      - name: wrist
       
-        image: anilyerramasu/seghepaticvessel_3d_gpu
+        image: anilyerramasu/yolo_wrist_fracture
         
         ports:
           - containerPort: 5000
@@ -37,23 +37,18 @@ spec:
             mountPath: /home/input
           - name: deepmd-storage-output
             mountPath: /home/output
-        readinessProbe:
-            httpGet:
-              path: /hepatic
-              port: 5000
-            initialDelaySeconds: 30
-            periodSeconds: 3
+        
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: hepatic-service
-  namespace: deepmd-ml
+  name: wrist-service
+  namespace: deepmd-pc
 spec:
   ports:
   - port: 5000
     targetPort: 5000
     name: http
   selector:
-    app: hepatic
+    app: wrist

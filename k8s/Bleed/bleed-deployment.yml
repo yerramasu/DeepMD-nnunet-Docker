@@ -2,32 +2,32 @@ apiVersion: apps/v1
 
 kind: Deployment
 metadata:
-  name: hepatic-deployment
+  name: bleed-deployment
   namespace: deepmd-ml
 spec:
   selector:
     matchLabels:
-      app: hepatic
+      app: bleed
   replicas: 1
   template:
     metadata:
       labels:
-        app: hepatic
+        app: bleed
     spec:
       volumes:
       - name: deepmd-storage-input
         hostPath:
-          path: /home/ubuntu/storage1/deepmd/hepatic/input
+          path: /tmp/deepmd/bleed/input
           type: DirectoryOrCreate
       - name: deepmd-storage-output
         hostPath:
-          path: /home/ubuntu/storage1/deepmd/hepatic/output
+          path: /tmp/deepmd/bleed/output
           type: DirectoryOrCreate
 
       containers:
-      - name: hepatic
+      - name: bleed
       
-        image: anilyerramasu/seghepaticvessel_3d_gpu
+        image: anilyerramasu/deepbleed
         
         ports:
           - containerPort: 5000
@@ -37,18 +37,13 @@ spec:
             mountPath: /home/input
           - name: deepmd-storage-output
             mountPath: /home/output
-        readinessProbe:
-            httpGet:
-              path: /hepatic
-              port: 5000
-            initialDelaySeconds: 30
-            periodSeconds: 3
+        
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: hepatic-service
+  name: bleed-service
   namespace: deepmd-ml
 spec:
   ports:
@@ -56,4 +51,4 @@ spec:
     targetPort: 5000
     name: http
   selector:
-    app: hepatic
+    app: bleed

@@ -73,4 +73,11 @@ spec:
             name: colon-service
             port:
               number: 5000
+      - path: /bleed
+        pathType: Prefix
+        backend:
+          service:
+            name: bleed-service
+            port:
+              number: 5000
       

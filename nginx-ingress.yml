@@ -24,10 +24,3 @@ spec:
             name: cxr-service
             port:
               number: 5000
-      - path: /wrist
-        pathType: Prefix
-        backend:
-          service:
-            name: wrist-service
-            port:
-              number: 5000
